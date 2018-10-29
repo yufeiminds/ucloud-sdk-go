@@ -78,7 +78,7 @@ type UDBInstanceSet struct {
 	Role string
 
 	// DB实例磁盘已使用空间，单位GB
-	DiskUsedSize int
+	DiskUsedSize float64
 
 	// DB实例数据文件大小，单位GB
 	DataFileSize int

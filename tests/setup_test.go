@@ -92,6 +92,7 @@ func testSetup() {
 	iudbClient = iudb.NewClient(&cfg, &credential)
 	iumemClient = iumem.NewClient(&cfg, &credential)
 	iudpnClient = iudpn.NewClient(&cfg, &credential)
+	iubillClient = iubill.NewClient(&cfg, &credential)
 
 	log.Info("setup test fixtures ...")
 }
