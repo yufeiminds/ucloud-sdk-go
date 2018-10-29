@@ -23,6 +23,9 @@ type CheckURedisAllowanceRequest struct {
 
 	// 是否是跨机房URedis(默认false)
 	RegionFlag *bool `required:"false"`
+
+	//
+	SlaveZone *string `required:"false"`
 }
 
 // CheckURedisAllowanceResponse is response schema for CheckURedisAllowance action

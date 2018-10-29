@@ -59,6 +59,9 @@ type CreateURedisGroupRequest struct {
 
 	// 代金券ID
 	CouponId *string `required:"false"`
+
+	//
+	Protocol *string `required:"false"`
 }
 
 // CreateURedisGroupResponse is response schema for CreateURedisGroup action

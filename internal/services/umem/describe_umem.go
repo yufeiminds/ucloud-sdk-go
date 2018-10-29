@@ -23,6 +23,9 @@ type DescribeUMemRequest struct {
 
 	// 资源ID
 	ResourceId *string `required:"false"`
+
+	//
+	ResourceType *string `required:"false"`
 }
 
 // DescribeUMemResponse is response schema for DescribeUMem action
