@@ -16,7 +16,7 @@ type DescribeURedisBackupURLRequest struct {
 	Zone *string `required:"true"`
 
 	// 备份ID
-	BackupId *int `required:"true"`
+	BackupId *string `required:"true"`
 
 	// 是否是跨机房URedis(默认false)
 	RegionFlag *bool `required:"false"`

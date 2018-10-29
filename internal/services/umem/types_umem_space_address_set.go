@@ -12,5 +12,5 @@ type UMemSpaceAddressSet struct {
 	IP string
 
 	// UMem实例访问Port
-	Port string
+	Port int
 }
