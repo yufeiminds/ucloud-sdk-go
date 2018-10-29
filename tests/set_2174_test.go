@@ -7,7 +7,7 @@ import (
 	"github.com/ucloud/ucloud-sdk-go/internal/utest"
 )
 
-func TestSet2117(t *testing.T) {
+func TestSet2174(t *testing.T) {
 	t.Parallel()
 
 	ctx := utest.NewTestContext()
@@ -17,45 +17,53 @@ func TestSet2117(t *testing.T) {
 	ctx.SetVar("Region", "cn-sh2")
 	ctx.SetVar("Zone", "cn-sh2-02")
 
+	ctx.SetVar("ConfigId", "03f58ca9-b64d-4bdd-abc7-c6b9a46fd801")
+	ctx.SetVar("Password", "Z3VhbmxpeXVhbm1pbWE=")
+	ctx.SetVar("HighAvailability", "disable")
+	ctx.SetVar("Version", "3.2")
+	ctx.SetVar("Protocol", "redis")
 	ctx.SetVar("ResourceType", "single")
-	ctx.SetVar("ConfigId", "9a891891-c245-4b66-bce8-67e59430d67c")
-	ctx.SetVar("Name", "single_memcache")
-	ctx.SetVar("Protocol", "memcache")
+	ctx.SetVar("Name", "single_redis")
 
-	testSet2117CreateUMemcacheGroup00(&ctx)
-	testSet2117DescribeUMem01(&ctx)
-	testSet2117DescribeUMemcacheGroup02(&ctx)
-	testSet2117ResizeUMemcacheGroup03(&ctx)
-	testSet2117DescribeUMem04(&ctx)
-	testSet2117RestartUMemcacheGroup05(&ctx)
-	testSet2117DescribeUMem06(&ctx)
-	testSet2117DeleteUMemcacheGroup07(&ctx)
-	testSet2117DescribeUMem08(&ctx)
+	testSet2174CreateURedisGroup00(&ctx)
+	testSet2174DescribeUMem01(&ctx)
+	testSet2174CheckURedisAllowance02(&ctx)
+	testSet2174CreateURedisBackup03(&ctx)
+	testSet2174DescribeUMem04(&ctx)
+	testSet2174DescribeURedisBackupState05(&ctx)
+	testSet2174DescribeURedisBackupURL06(&ctx)
+	testSet2174DeleteURedisGroup07(&ctx)
+	testSet2174DescribeURedisGroup08(&ctx)
 }
 
-func testSet2117CreateUMemcacheGroup00(ctx *utest.TestContext) {
+func testSet2174CreateURedisGroup00(ctx *utest.TestContext) {
 	time.Sleep(time.Duration(0) * time.Second)
 
-	req := umemClient.NewCreateUMemcacheGroupRequest()
+	req := umemClient.NewCreateURedisGroupRequest()
 
 	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
 	ctx.NoError(utest.SetReqValue(req, "Zone", ctx.GetVar("Zone")))
-
 	ctx.NoError(utest.SetReqValue(req, "Name", ctx.GetVar("Name")))
 	ctx.NoError(utest.SetReqValue(req, "Size", "1"))
+	ctx.NoError(utest.SetReqValue(req, "AutoBackup", "enable"))
+	ctx.NoError(utest.SetReqValue(req, "BackupTime", "3"))
 	ctx.NoError(utest.SetReqValue(req, "ConfigId", ctx.GetVar("ConfigId")))
+	ctx.NoError(utest.SetReqValue(req, "HighAvailability", ctx.GetVar("HighAvailability")))
+	ctx.NoError(utest.SetReqValue(req, "Version", ctx.GetVar("Version")))
 	ctx.NoError(utest.SetReqValue(req, "ChargeType", "Month"))
 	ctx.NoError(utest.SetReqValue(req, "Quantity", "1"))
 
+	ctx.NoError(utest.SetReqValue(req, "Protocol", ctx.GetVar("Protocol")))
+
 	testCase := utest.TestCase{
 		Invoker: func() (interface{}, error) {
-			return umemClient.CreateUMemcacheGroup(req)
+			return umemClient.CreateURedisGroup(req)
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
 		},
-		MaxRetries:    3,
-		RetryInterval: 1 * time.Second,
+		MaxRetries:    0,
+		RetryInterval: 0 * time.Second,
 		T:             ctx.T,
 	}
 
@@ -67,7 +75,7 @@ func testSet2117CreateUMemcacheGroup00(ctx *utest.TestContext) {
 	ctx.Vars["group_id"] = ctx.Must(utest.GetValue(resp, "GroupId"))
 }
 
-func testSet2117DescribeUMem01(ctx *utest.TestContext) {
+func testSet2174DescribeUMem01(ctx *utest.TestContext) {
 	time.Sleep(time.Duration(20) * time.Second)
 
 	req := iumemClient.NewDescribeUMemRequest()
@@ -78,94 +86,7 @@ func testSet2117DescribeUMem01(ctx *utest.TestContext) {
 	ctx.NoError(utest.SetReqValue(req, "ResourceId", ctx.GetVar("group_id")))
 	ctx.NoError(utest.SetReqValue(req, "Protocol", ctx.GetVar("Protocol")))
 
-	testCase := utest.TestCase{
-		Invoker: func() (interface{}, error) {
-			return iumemClient.DescribeUMem(req)
-		},
-		Validators: []utest.TestValidator{
-			ctx.NewValidator("RetCode", "0", "str_eq"),
-		},
-		MaxRetries:    30,
-		RetryInterval: 10 * time.Second,
-		T:             ctx.T,
-	}
-
-	resp, err := testCase.Run()
-	if resp == nil || err != nil {
-		ctx.T.Fatal(err)
-	}
-
-}
-
-func testSet2117DescribeUMemcacheGroup02(ctx *utest.TestContext) {
-	time.Sleep(time.Duration(100) * time.Second)
-
-	req := umemClient.NewDescribeUMemcacheGroupRequest()
-
-	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
-	ctx.NoError(utest.SetReqValue(req, "Zone", ctx.GetVar("Zone")))
-
-	ctx.NoError(utest.SetReqValue(req, "GroupId", ctx.GetVar("group_id")))
-	ctx.NoError(utest.SetReqValue(req, "Offset", "0"))
-	ctx.NoError(utest.SetReqValue(req, "Limit", "100"))
-
-	testCase := utest.TestCase{
-		Invoker: func() (interface{}, error) {
-			return umemClient.DescribeUMemcacheGroup(req)
-		},
-		Validators: []utest.TestValidator{
-			ctx.NewValidator("RetCode", "0", "str_eq"),
-		},
-		MaxRetries:    3,
-		RetryInterval: 1 * time.Second,
-		T:             ctx.T,
-	}
-
-	resp, err := testCase.Run()
-	if resp == nil || err != nil {
-		ctx.T.Fatal(err)
-	}
-
-}
-
-func testSet2117ResizeUMemcacheGroup03(ctx *utest.TestContext) {
-	time.Sleep(time.Duration(0) * time.Second)
-
-	req := iumemClient.NewResizeUMemcacheGroupRequest()
-
-	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
-	ctx.NoError(utest.SetReqValue(req, "GroupId", ctx.GetVar("group_id")))
-	ctx.NoError(utest.SetReqValue(req, "Size", "2"))
-
-	testCase := utest.TestCase{
-		Invoker: func() (interface{}, error) {
-			return iumemClient.ResizeUMemcacheGroup(req)
-		},
-		Validators: []utest.TestValidator{
-			ctx.NewValidator("RetCode", "0", "str_eq"),
-		},
-		MaxRetries:    0,
-		RetryInterval: 0 * time.Second,
-		T:             ctx.T,
-	}
-
-	resp, err := testCase.Run()
-	if resp == nil || err != nil {
-		ctx.T.Fatal(err)
-	}
-
-}
-
-func testSet2117DescribeUMem04(ctx *utest.TestContext) {
-	time.Sleep(time.Duration(3) * time.Second)
-
-	req := iumemClient.NewDescribeUMemRequest()
-
-	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
-	ctx.NoError(utest.SetReqValue(req, "Offset", "0"))
-	ctx.NoError(utest.SetReqValue(req, "Limit", "1000"))
-	ctx.NoError(utest.SetReqValue(req, "ResourceId", ctx.GetVar("group_id")))
-	ctx.NoError(utest.SetReqValue(req, "Protocol", ctx.GetVar("Protocol")))
+	ctx.NoError(utest.SetReqValue(req, "ResourceType", ctx.GetVar("ResourceType")))
 
 	testCase := utest.TestCase{
 		Invoker: func() (interface{}, error) {
@@ -186,79 +107,83 @@ func testSet2117DescribeUMem04(ctx *utest.TestContext) {
 
 }
 
-func testSet2117RestartUMemcacheGroup05(ctx *utest.TestContext) {
-	time.Sleep(time.Duration(0) * time.Second)
-
-	req := umemClient.NewRestartUMemcacheGroupRequest()
-
-	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
-	ctx.NoError(utest.SetReqValue(req, "GroupId", ctx.GetVar("group_id")))
-
-	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
-	ctx.NoError(utest.SetReqValue(req, "Zone", ctx.GetVar("Zone")))
-
-	testCase := utest.TestCase{
-		Invoker: func() (interface{}, error) {
-			return umemClient.RestartUMemcacheGroup(req)
-		},
-		Validators: []utest.TestValidator{
-			ctx.NewValidator("RetCode", "0", "str_eq"),
-		},
-		MaxRetries:    0,
-		RetryInterval: 0 * time.Second,
-		T:             ctx.T,
-	}
-
-	resp, err := testCase.Run()
-	if resp == nil || err != nil {
-		ctx.T.Fatal(err)
-	}
-
-}
-
-func testSet2117DescribeUMem06(ctx *utest.TestContext) {
-	time.Sleep(time.Duration(60) * time.Second)
-
-	req := iumemClient.NewDescribeUMemRequest()
-
-	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
-	ctx.NoError(utest.SetReqValue(req, "Offset", "0"))
-	ctx.NoError(utest.SetReqValue(req, "Limit", "1000"))
-	ctx.NoError(utest.SetReqValue(req, "ResourceId", ctx.GetVar("group_id")))
-	ctx.NoError(utest.SetReqValue(req, "Protocol", ctx.GetVar("Protocol")))
-
-	testCase := utest.TestCase{
-		Invoker: func() (interface{}, error) {
-			return iumemClient.DescribeUMem(req)
-		},
-		Validators: []utest.TestValidator{
-			ctx.NewValidator("RetCode", "0", "str_eq"),
-		},
-		MaxRetries:    30,
-		RetryInterval: 10 * time.Second,
-		T:             ctx.T,
-	}
-
-	resp, err := testCase.Run()
-	if resp == nil || err != nil {
-		ctx.T.Fatal(err)
-	}
-
-}
-
-func testSet2117DeleteUMemcacheGroup07(ctx *utest.TestContext) {
+func testSet2174CheckURedisAllowance02(ctx *utest.TestContext) {
 	time.Sleep(time.Duration(10) * time.Second)
 
-	req := umemClient.NewDeleteUMemcacheGroupRequest()
+	req := iumemClient.NewCheckURedisAllowanceRequest()
 
 	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
 	ctx.NoError(utest.SetReqValue(req, "Zone", ctx.GetVar("Zone")))
+	ctx.NoError(utest.SetReqValue(req, "Size", "1"))
+	ctx.NoError(utest.SetReqValue(req, "Count", "1"))
 
-	ctx.NoError(utest.SetReqValue(req, "GroupId", ctx.GetVar("group_id")))
+	ctx.NoError(utest.SetReqValue(req, "SlaveZone", ctx.GetVar("Zone")))
 
 	testCase := utest.TestCase{
 		Invoker: func() (interface{}, error) {
-			return umemClient.DeleteUMemcacheGroup(req)
+			return iumemClient.CheckURedisAllowance(req)
+		},
+		Validators: []utest.TestValidator{
+			ctx.NewValidator("RetCode", "0", "str_eq"),
+		},
+		MaxRetries:    30,
+		RetryInterval: 10 * time.Second,
+		T:             ctx.T,
+	}
+
+	resp, err := testCase.Run()
+	if resp == nil || err != nil {
+		ctx.T.Fatal(err)
+	}
+
+}
+
+func testSet2174CreateURedisBackup03(ctx *utest.TestContext) {
+	time.Sleep(time.Duration(0) * time.Second)
+
+	req := iumemClient.NewCreateURedisBackupRequest()
+
+	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
+	ctx.NoError(utest.SetReqValue(req, "Zone", ctx.GetVar("Zone")))
+	ctx.NoError(utest.SetReqValue(req, "GroupId", ctx.GetVar("group_id")))
+	ctx.NoError(utest.SetReqValue(req, "BackupName", "backup_Redis"))
+
+	testCase := utest.TestCase{
+		Invoker: func() (interface{}, error) {
+			return iumemClient.CreateURedisBackup(req)
+		},
+		Validators: []utest.TestValidator{
+			ctx.NewValidator("RetCode", "0", "str_eq"),
+		},
+		MaxRetries:    3,
+		RetryInterval: 1 * time.Second,
+		T:             ctx.T,
+	}
+
+	resp, err := testCase.Run()
+	if resp == nil || err != nil {
+		ctx.T.Fatal(err)
+	}
+
+	ctx.Vars["backup_id"] = ctx.Must(utest.GetValue(resp, "BackupId"))
+}
+
+func testSet2174DescribeUMem04(ctx *utest.TestContext) {
+	time.Sleep(time.Duration(0) * time.Second)
+
+	req := iumemClient.NewDescribeUMemRequest()
+
+	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
+	ctx.NoError(utest.SetReqValue(req, "Offset", "0"))
+	ctx.NoError(utest.SetReqValue(req, "Limit", "1000"))
+	ctx.NoError(utest.SetReqValue(req, "ResourceId", ctx.GetVar("group_id")))
+	ctx.NoError(utest.SetReqValue(req, "Protocol", ctx.GetVar("Protocol")))
+
+	ctx.NoError(utest.SetReqValue(req, "ResourceType", ctx.GetVar("ResourceType")))
+
+	testCase := utest.TestCase{
+		Invoker: func() (interface{}, error) {
+			return iumemClient.DescribeUMem(req)
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
@@ -275,21 +200,106 @@ func testSet2117DeleteUMemcacheGroup07(ctx *utest.TestContext) {
 
 }
 
-func testSet2117DescribeUMem08(ctx *utest.TestContext) {
-	time.Sleep(time.Duration(0) * time.Second)
+func testSet2174DescribeURedisBackupState05(ctx *utest.TestContext) {
+	time.Sleep(time.Duration(10) * time.Second)
 
-	req := iumemClient.NewDescribeUMemRequest()
+	req := Client.NewDescribeURedisBackupStateRequest()
 
 	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
-
-	ctx.NoError(utest.SetReqValue(req, "Protocol", ctx.GetVar("Protocol")))
-	ctx.NoError(utest.SetReqValue(req, "Offset", "0"))
-	ctx.NoError(utest.SetReqValue(req, "Limit", "100"))
-	ctx.NoError(utest.SetReqValue(req, "ResourceId", ctx.GetVar("group_id")))
+	ctx.NoError(utest.SetReqValue(req, "Zone", ctx.GetVar("Zone")))
+	ctx.NoError(utest.SetReqValue(req, "GroupId", ctx.GetVar("group_id")))
+	ctx.NoError(utest.SetReqValue(req, "BackupId", ctx.GetVar("backup_id")))
 
 	testCase := utest.TestCase{
 		Invoker: func() (interface{}, error) {
-			return iumemClient.DescribeUMem(req)
+			return Client.DescribeURedisBackupState(req)
+		},
+		Validators: []utest.TestValidator{
+			ctx.NewValidator("RetCode", "0", "str_eq"),
+		},
+		MaxRetries:    3,
+		RetryInterval: 1 * time.Second,
+		T:             ctx.T,
+	}
+
+	resp, err := testCase.Run()
+	if resp == nil || err != nil {
+		ctx.T.Fatal(err)
+	}
+
+}
+
+func testSet2174DescribeURedisBackupURL06(ctx *utest.TestContext) {
+	time.Sleep(time.Duration(10) * time.Second)
+
+	req := umemClient.NewDescribeURedisBackupURLRequest()
+
+	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
+	ctx.NoError(utest.SetReqValue(req, "Zone", ctx.GetVar("Zone")))
+
+	ctx.NoError(utest.SetReqValue(req, "BackupId", ctx.GetVar("backup_id")))
+
+	testCase := utest.TestCase{
+		Invoker: func() (interface{}, error) {
+			return umemClient.DescribeURedisBackupURL(req)
+		},
+		Validators: []utest.TestValidator{
+			ctx.NewValidator("RetCode", "0", "str_eq"),
+		},
+		MaxRetries:    3,
+		RetryInterval: 1 * time.Second,
+		T:             ctx.T,
+	}
+
+	resp, err := testCase.Run()
+	if resp == nil || err != nil {
+		ctx.T.Fatal(err)
+	}
+
+}
+
+func testSet2174DeleteURedisGroup07(ctx *utest.TestContext) {
+	time.Sleep(time.Duration(10) * time.Second)
+
+	req := umemClient.NewDeleteURedisGroupRequest()
+
+	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
+
+	ctx.NoError(utest.SetReqValue(req, "GroupId", ctx.GetVar("group_id")))
+
+	testCase := utest.TestCase{
+		Invoker: func() (interface{}, error) {
+			return umemClient.DeleteURedisGroup(req)
+		},
+		Validators: []utest.TestValidator{
+			ctx.NewValidator("RetCode", "0", "str_eq"),
+		},
+		MaxRetries:    3,
+		RetryInterval: 1 * time.Second,
+		T:             ctx.T,
+	}
+
+	resp, err := testCase.Run()
+	if resp == nil || err != nil {
+		ctx.T.Fatal(err)
+	}
+
+}
+
+func testSet2174DescribeURedisGroup08(ctx *utest.TestContext) {
+	time.Sleep(time.Duration(0) * time.Second)
+
+	req := umemClient.NewDescribeURedisGroupRequest()
+
+	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
+
+	ctx.NoError(utest.SetReqValue(req, "GroupId", ctx.GetVar("group_id")))
+	ctx.NoError(utest.SetReqValue(req, "Offset", "0"))
+	ctx.NoError(utest.SetReqValue(req, "Limit", "100"))
+
+	testCase := utest.TestCase{
+		Invoker: func() (interface{}, error) {
+			return umemClient.DescribeURedisGroup(req)
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),

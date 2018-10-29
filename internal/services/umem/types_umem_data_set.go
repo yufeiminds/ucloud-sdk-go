@@ -72,5 +72,5 @@ type UMemDataSet struct {
 	Zone string
 
 	// 是否拥有只读Slave
-	OwnSlave bool
+	OwnSlave string
 }

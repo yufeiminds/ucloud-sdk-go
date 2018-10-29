@@ -245,7 +245,7 @@ func testSet1203DescribeUMem06(ctx *utest.TestContext) {
 }
 
 func testSet1203DeleteUMemSpace07(ctx *utest.TestContext) {
-	time.Sleep(time.Duration(30) * time.Second)
+	time.Sleep(time.Duration(50) * time.Second)
 
 	req := umemClient.NewDeleteUMemSpaceRequest()
 
