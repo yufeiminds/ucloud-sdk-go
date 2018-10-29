@@ -76,7 +76,7 @@ To create a new uhost:
 // build Request
 req := uhostClient.NewCreateUHostInstanceRequest()
 req.Name       = sdk.String("sdk-example-uhost")
-req.Zone       = sdk.String("cn-bj2-02")
+req.Zone       = sdk.String("cn-bj2-05")
 req.ImageId    = sdk.String("uimage-ixczxu")
 req.LoginMode  = sdk.String("Password")
 req.Password   = sdk.String("my_uhost_password")

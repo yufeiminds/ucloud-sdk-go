@@ -17,7 +17,7 @@ func TestSet687(t *testing.T) {
 	ctx.SetVar("Region", "cn-sh2")
 	ctx.SetVar("Zone", "cn-sh2-02")
 
-	ctx.SetVar("Zone", "cn-sh2-01")
+	ctx.SetVar("Zone", "cn-sh2-02")
 	ctx.SetVar("Region", "cn-sh2")
 	ctx.SetVar("VPC_name_1", "VPC_api_test_1")
 	ctx.SetVar("remark", "remark_api_test")

@@ -21,7 +21,7 @@ func TestSet333(t *testing.T) {
 	ctx.SetVar("ImageName", "ImageTest")
 	ctx.SetVar("TargetImageName", "ImageCopyTest")
 	ctx.SetVar("TargetRegion", "cn-sh2")
-	ctx.SetVar("TargetZone", "cn-sh2-01")
+	ctx.SetVar("TargetZone", "cn-sh2-02")
 	ctx.SetVar("myImage", ctx.Must(utest.GetImageResource(ctx.GetVar("Region"), ctx.GetVar("Zone"))))
 
 	testSet333CreateUHostInstance00(&ctx)
