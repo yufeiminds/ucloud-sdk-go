@@ -20,6 +20,9 @@ type ResizeURedisGroupRequest struct {
 
 	// 代金券ID 请参考DescribeCoupon接口
 	CouponId *int `required:"false"`
+
+	//
+	Zone *string `required:"false"`
 }
 
 // ResizeURedisGroupResponse is response schema for ResizeURedisGroup action

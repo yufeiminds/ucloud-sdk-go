@@ -20,6 +20,9 @@ type ModifyURedisGroupPasswordRequest struct {
 
 	// 新密码字符串，如要取消密码，此值为空字符串
 	Password *string `required:"true"`
+
+	//
+	ResourceType *string `required:"false"`
 }
 
 // ModifyURedisGroupPasswordResponse is response schema for ModifyURedisGroupPassword action
