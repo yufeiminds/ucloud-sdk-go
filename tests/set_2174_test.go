@@ -203,7 +203,7 @@ func testSet2174DescribeUMem04(ctx *utest.TestContext) {
 func testSet2174DescribeURedisBackupState05(ctx *utest.TestContext) {
 	time.Sleep(time.Duration(10) * time.Second)
 
-	req := Client.NewDescribeURedisBackupStateRequest()
+	req := iumemClient.NewDescribeURedisBackupStateRequest()
 
 	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
 	ctx.NoError(utest.SetReqValue(req, "Zone", ctx.GetVar("Zone")))
@@ -212,7 +212,7 @@ func testSet2174DescribeURedisBackupState05(ctx *utest.TestContext) {
 
 	testCase := utest.TestCase{
 		Invoker: func() (interface{}, error) {
-			return Client.DescribeURedisBackupState(req)
+			return iumemClient.DescribeURedisBackupState(req)
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
