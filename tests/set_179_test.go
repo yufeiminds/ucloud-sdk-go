@@ -182,7 +182,7 @@ func testSet179DescribeUDBInstanceState03(ctx *utest.TestContext) {
 }
 
 func testSet179CreateUDBRouteInstance04(ctx *utest.TestContext) {
-	time.Sleep(time.Duration(1) * time.Second)
+	time.Sleep(time.Duration(0) * time.Second)
 
 	req := udbClient.NewCreateUDBRouteInstanceRequest()
 
@@ -195,8 +195,7 @@ func testSet179CreateUDBRouteInstance04(ctx *utest.TestContext) {
 	ctx.NoError(utest.SetReqValue(req, "ParamGroupId", ctx.Must(utest.SearchValue(ctx.GetVar("DataSet_paramGroup"), "GroupName", ctx.GetVar("GroupNameMongos"), "GroupId"))))
 	ctx.NoError(utest.SetReqValue(req, "MemoryLimit", ctx.GetVar("MemoryLimit")))
 	ctx.NoError(utest.SetReqValue(req, "DiskSpace", ctx.GetVar("DiskSpace")))
-	ctx.NoError(utest.SetReqValue(req, "ConfigsvrDBIds", ctx.GetVar("configid")))
-	ctx.NoError(utest.SetReqValue(req, "ChargeType", "Month"))
+
 
 	testCase := utest.TestCase{
 		Invoker: func() (interface{}, error) {
