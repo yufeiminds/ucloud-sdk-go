@@ -89,7 +89,11 @@ func (c *Comparators) Get(name string) CompareFunc {
 }
 
 func eq(a, b interface{}) (bool, error) {
-	return reflect.DeepEqual(a, b), nil
+	return checkStrings(a, b, func(aVal, bVal string) (bool, error) { return aVal == bVal, nil })
+}
+
+func ne(a, b interface{}) (bool, error) {
+	return checkStrings(a, b, func(aVal, bVal string) (bool, error) { return aVal != bVal, nil })
 }
 
 func absEq(a, b interface{}) (bool, error) {
@@ -110,10 +114,6 @@ func gt(a, b interface{}) (bool, error) {
 
 func ge(a, b interface{}) (bool, error) {
 	return checkFloats(a, b, func(aVal, bVal float64) (bool, error) { return aVal >= bVal, nil })
-}
-
-func ne(a, b interface{}) (bool, error) {
-	return checkFloats(a, b, func(aVal, bVal float64) (bool, error) { return aVal != bVal, nil })
 }
 
 func floatEq(a, b interface{}) (bool, error) {
