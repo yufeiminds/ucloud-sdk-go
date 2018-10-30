@@ -79,6 +79,7 @@ func testSet1202DescribeUMem01(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.State", "Running", "str_eq"),
 		},
 		MaxRetries:    30,
 		RetryInterval: 10 * time.Second,
@@ -138,6 +139,7 @@ func testSet1202DescribeUMem03(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.State", "Running", "str_eq"),
 		},
 		MaxRetries:    30,
 		RetryInterval: 10 * time.Second,
@@ -198,6 +200,8 @@ func testSet1202DescribeUMemSpace05(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "DescribeUMemSpaceResponse", "str_eq"),
+			ctx.NewValidator("DataSet", ctx.GetVar("Space_Id"), "object_not_contains"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,

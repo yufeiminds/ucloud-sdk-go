@@ -83,6 +83,7 @@ func testSet1203DescribeUMem01(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.State", "Running", "str_eq"),
 		},
 		MaxRetries:    30,
 		RetryInterval: 10 * time.Second,
@@ -113,6 +114,7 @@ func testSet1203ModifyUMemSpaceName02(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "ModifyUMemSpaceNameResponse", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -143,6 +145,7 @@ func testSet1203DescribeUMem03(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.State", "Running", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -172,6 +175,7 @@ func testSet1203GetUMemSpaceState04(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "GetUMemSpaceStateResponse", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -231,6 +235,7 @@ func testSet1203DescribeUMem06(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.State", "Running", "str_eq"),
 		},
 		MaxRetries:    40,
 		RetryInterval: 10 * time.Second,
@@ -260,6 +265,7 @@ func testSet1203DeleteUMemSpace07(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "DeleteUMemSpaceResponse", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 10 * time.Second,
@@ -291,6 +297,8 @@ func testSet1203DescribeUMem08(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "DescribeUMemResponse", "str_eq"),
+			ctx.NewValidator("DataSet", ctx.GetVar("Space_Id"), "object_not_contains"),
 		},
 		MaxRetries:    30,
 		RetryInterval: 10 * time.Second,

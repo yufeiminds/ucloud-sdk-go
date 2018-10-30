@@ -237,6 +237,8 @@ func testSet499DescribeUDBInstance05(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.Name ", ctx.Must(utest.Concat(ctx.GetVar("DBName"), ctx.GetVar("DBTypeId"))), "str_eq"),
+			ctx.NewValidator("DataSet.0.DBTypeId", ctx.GetVar("DBTypeId"), "str_eq"),
 		},
 		MaxRetries:    0,
 		RetryInterval: 0 * time.Second,
@@ -266,6 +268,7 @@ func testSet499DescribeUDBInstanceState06(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("State", "Running", "str_eq"),
 		},
 		MaxRetries:    100,
 		RetryInterval: 3 * time.Second,
@@ -392,6 +395,7 @@ func testSet499ChangeUDBParamGroup10(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "ChangeUDBParamGroupResponse", "str_eq"),
 		},
 		MaxRetries:    0,
 		RetryInterval: 0 * time.Second,
@@ -421,6 +425,8 @@ func testSet499DescribeUDBInstance11(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "DescribeUDBInstanceResponse", "str_eq"),
+			ctx.NewValidator("DataSet.0.ParamGroupId", ctx.GetVar("upload_config_id"), "str_eq"),
 		},
 		MaxRetries:    10,
 		RetryInterval: 3 * time.Second,
@@ -450,6 +456,7 @@ func testSet499RestartUDBInstance12(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "RestartUDBInstanceResponse", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -479,6 +486,8 @@ func testSet499DescribeUDBInstance13(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "DescribeUDBInstanceResponse", "str_eq"),
+			ctx.NewValidator("DataSet.0.State", "Running", "str_eq"),
 		},
 		MaxRetries:    100,
 		RetryInterval: 3 * time.Second,
@@ -537,6 +546,7 @@ func testSet499StopUDBInstance15(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "StopUDBInstanceResponse", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -569,6 +579,8 @@ func testSet499DescribeUDBInstance16(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.DBTypeId", ctx.GetVar("DBTypeId"), "str_eq"),
+			ctx.NewValidator("DataSet.0.State", "Shutoff", "str_eq"),
 		},
 		MaxRetries:    100,
 		RetryInterval: 3 * time.Second,

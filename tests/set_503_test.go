@@ -232,6 +232,8 @@ func testSet503DescribeUDBInstance05(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.Name ", ctx.Must(utest.Concat(ctx.GetVar("DBName"), ctx.GetVar("DBTypeId"))), "str_eq"),
+			ctx.NewValidator("DataSet.0.DBTypeId", ctx.GetVar("DBTypeId"), "str_eq"),
 		},
 		MaxRetries:    0,
 		RetryInterval: 0 * time.Second,
@@ -261,6 +263,7 @@ func testSet503DescribeUDBInstanceState06(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("State", "Running", "str_eq"),
 		},
 		MaxRetries:    100,
 		RetryInterval: 3 * time.Second,
@@ -391,6 +394,11 @@ func testSet503DescribeUDBInstance10(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.Name ", ctx.Must(utest.Concat(ctx.GetVar("DBName"), ctx.GetVar("DBTypeId"))), "str_eq"),
+			ctx.NewValidator("DataSet.0.DBTypeId", ctx.GetVar("DBTypeId"), "str_eq"),
+			ctx.NewValidator("DataSet.0.State", "Running", "str_eq"),
+			ctx.NewValidator("DataSet.0.MemoryLimit", ctx.Must(utest.Calculate("+", ctx.GetVar("MemoryLimit"), "1")), "str_eq"),
+			ctx.NewValidator("DataSet.0.DiskSpace", ctx.Must(utest.Calculate("+", ctx.GetVar("DiskSpace"), "10")), "str_eq"),
 		},
 		MaxRetries:    90,
 		RetryInterval: 10 * time.Second,
@@ -452,6 +460,9 @@ func testSet503DescribeUDBInstance12(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.Name ", ctx.Must(utest.Concat(ctx.GetVar("DBName"), ctx.GetVar("DBTypeId"))), "str_eq"),
+			ctx.NewValidator("DataSet.0.DBTypeId", ctx.GetVar("DBTypeId"), "str_eq"),
+			ctx.NewValidator("DataSet.0.State", "Shutoff", "str_eq"),
 		},
 		MaxRetries:    100,
 		RetryInterval: 3 * time.Second,

@@ -52,6 +52,7 @@ func testSet1201DescribeURedisBackup00(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "DescribeURedisBackupResponse", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -123,6 +124,7 @@ func testSet1201DescribeUMem02(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.State", "Running", "str_eq"),
 		},
 		MaxRetries:    30,
 		RetryInterval: 10 * time.Second,
@@ -152,6 +154,7 @@ func testSet1201ModifyURedisGroupName03(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "ModifyURedisGroupNameResponse", "str_eq"),
 		},
 		MaxRetries:    30,
 		RetryInterval: 10 * time.Second,
@@ -184,6 +187,7 @@ func testSet1201DescribeUMem04(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.State", "Running", "str_eq"),
 		},
 		MaxRetries:    30,
 		RetryInterval: 10 * time.Second,
@@ -246,6 +250,7 @@ func testSet1201DescribeUMem06(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.State", "Running", "str_eq"),
 		},
 		MaxRetries:    30,
 		RetryInterval: 10 * time.Second,
@@ -307,6 +312,7 @@ func testSet1201DescribeUMem08(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.State", "Running", "str_eq"),
 		},
 		MaxRetries:    30,
 		RetryInterval: 10 * time.Second,
@@ -338,6 +344,7 @@ func testSet1201CheckURedisAllowance09(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "CheckURedisAllowanceResponse", "str_eq"),
 		},
 		MaxRetries:    30,
 		RetryInterval: 10 * time.Second,
@@ -366,6 +373,7 @@ func testSet1201DeleteURedisGroup10(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "DeleteURedisGroupResponse", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -396,6 +404,8 @@ func testSet1201DescribeURedisGroup11(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "DescribeURedisGroupResponse", "str_eq"),
+			ctx.NewValidator("DataSet", ctx.GetVar("group_id"), "object_not_contains"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,

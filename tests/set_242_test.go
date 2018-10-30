@@ -119,6 +119,7 @@ func testSet242DescribeUMem02(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.State", "Running", "str_eq"),
 		},
 		MaxRetries:    30,
 		RetryInterval: 10 * time.Second,
@@ -155,6 +156,7 @@ func testSet242DescribeOrderDetailInfo03(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("OrderInfos.0.Amount", ctx.Must(utest.Calculate(ctx.GetVar("GetPrice/100"))), "float_eq"),
 		},
 		MaxRetries:    5,
 		RetryInterval: 1 * time.Second,
@@ -248,6 +250,8 @@ func testSet242DescribeOrderDetailInfo06(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("OrderInfos.0.Amount", ctx.Must(utest.Calculate("+", ctx.GetVar("UpgradePrice/100"), "0.1", "float")), "lt"),
+			ctx.NewValidator("OrderInfos.0.Amount", ctx.Must(utest.Calculate(ctx.GetVar("UpgradePrice/100-0.1"), "float")), "gt"),
 		},
 		MaxRetries:    5,
 		RetryInterval: 1 * time.Second,
@@ -338,7 +342,9 @@ func testSet242DescribeOrderDetailInfo09(ctx *utest.TestContext) {
 		Invoker: func() (interface{}, error) {
 			return iubillClient.DescribeOrderDetailInfo(req)
 		},
-		Validators:    []utest.TestValidator{},
+		Validators: []utest.TestValidator{
+			ctx.NewValidator("OrderInfos.0.Amount", ctx.GetVar("ReNewPrice"), "str_eq"),
+		},
 		MaxRetries:    0,
 		RetryInterval: 0 * time.Second,
 		T:             ctx.T,

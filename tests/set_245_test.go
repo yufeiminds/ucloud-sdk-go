@@ -151,6 +151,8 @@ func testSet245DescribeOrderDetailInfo03(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("OrderInfos.0.Amount", ctx.Must(utest.Calculate("+", ctx.GetVar("GetPrice/100"), "0.6", "float")), "le"),
+			ctx.NewValidator("OrderInfos.0.Amount", ctx.Must(utest.Calculate(ctx.GetVar("GetPrice/100-0.6"), "float")), "gt"),
 		},
 		MaxRetries:    0,
 		RetryInterval: 0 * time.Second,
@@ -246,6 +248,8 @@ func testSet245DescribeOrderDetailInfo06(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("OrderInfos.0.Amount", ctx.Must(utest.Calculate("+", ctx.GetVar("UpgradePrice/100"), "0.1", "float")), "lt"),
+			ctx.NewValidator("OrderInfos.0.Amount", ctx.Must(utest.Calculate(ctx.GetVar("UpgradePrice/100-0.1"), "float")), "gt"),
 		},
 		MaxRetries:    0,
 		RetryInterval: 0 * time.Second,
@@ -338,6 +342,7 @@ func testSet245DescribeOrderDetailInfo09(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("OrderInfos.0.Amount", "ReNewPrice", "str_eq"),
 		},
 		MaxRetries:    0,
 		RetryInterval: 0 * time.Second,

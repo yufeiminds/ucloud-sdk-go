@@ -236,6 +236,7 @@ func testSet207DescribeUDBInstanceState05(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("State", "Running", "str_eq"),
 		},
 		MaxRetries:    100,
 		RetryInterval: 3 * time.Second,
@@ -297,6 +298,9 @@ func testSet207DescribeUDBInstance07(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.Name ", ctx.Must(utest.Concat(ctx.GetVar("DBName"), ctx.GetVar("DBTypeId"))), "str_eq"),
+			ctx.NewValidator("DataSet.0.DBTypeId", ctx.GetVar("DBTypeId"), "str_eq"),
+			ctx.NewValidator("DataSet.0.State", "Shutoff", "str_eq"),
 		},
 		MaxRetries:    20,
 		RetryInterval: 3 * time.Second,
@@ -428,6 +432,11 @@ func testSet207DescribeUDBInstance11(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.Name ", ctx.Must(utest.Concat(ctx.GetVar("DBName"), ctx.GetVar("DBTypeId"))), "str_eq"),
+			ctx.NewValidator("DataSet.0.DBTypeId", ctx.GetVar("DBTypeId"), "str_eq"),
+			ctx.NewValidator("DataSet.0.State", "Shutoff", "str_eq"),
+			ctx.NewValidator("DataSet.0.MemoryLimit", ctx.Must(utest.Calculate("+", ctx.GetVar("MemoryLimit"), "1")), "str_eq"),
+			ctx.NewValidator("DataSet.0.DiskSpace", ctx.Must(utest.Calculate("+", ctx.GetVar("DiskSpace"), "10")), "str_eq"),
 		},
 		MaxRetries:    100,
 		RetryInterval: 10 * time.Second,
@@ -457,6 +466,7 @@ func testSet207StartUDBInstance12(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "StartUDBInstanceResponse", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -486,6 +496,7 @@ func testSet207DescribeUDBInstanceState13(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("State", "Running", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -514,6 +525,8 @@ func testSet207CheckUDBInstanceToHAAllowance14(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "CheckUDBInstanceToHAAllowanceResponse", "str_eq"),
+			ctx.NewValidator("Allowance", "Yes", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -542,6 +555,7 @@ func testSet207DescribePromoteToHAPrice15(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "DescribePromoteToHAPriceResponse", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -570,6 +584,7 @@ func testSet207PromoteUDBInstanceToHA16(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "PromoteUDBInstanceToHAResponse", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -599,6 +614,8 @@ func testSet207DescribeUDBInstanceState17(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "DescribeUDBInstanceStateResponse", "str_eq"),
+			ctx.NewValidator("State", "WaitForSwitch", "str_eq"),
 		},
 		MaxRetries:    30,
 		RetryInterval: 10 * time.Second,
@@ -627,6 +644,7 @@ func testSet207SwitchUDBInstanceToHA18(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "SwitchUDBInstanceToHAResponse", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -659,6 +677,9 @@ func testSet207DescribeUDBInstance19(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.Name ", ctx.Must(utest.Concat(ctx.GetVar("DBName"), ctx.GetVar("DBTypeId"))), "str_eq"),
+			ctx.NewValidator("DataSet.0.VirtualIP", ctx.GetVar("VirtualIP"), "str_eq"),
+			ctx.NewValidator("DataSet.0.State", "Running", "str_eq"),
 		},
 		MaxRetries:    30,
 		RetryInterval: 10 * time.Second,

@@ -270,6 +270,8 @@ func testSet488DescribeUDBInstance06(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.Name", ctx.Must(utest.Concat(ctx.GetVar("DBName"), ctx.GetVar("DBTypeId"))), "str_eq"),
+			ctx.NewValidator("DataSet.0.DBTypeId", ctx.GetVar("DBTypeId"), "str_eq"),
 		},
 		MaxRetries:    60,
 		RetryInterval: 3 * time.Second,
@@ -299,6 +301,7 @@ func testSet488DescribeUDBInstanceState07(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("State", "Running", "str_eq"),
 		},
 		MaxRetries:    100,
 		RetryInterval: 3 * time.Second,
@@ -328,6 +331,8 @@ func testSet488DescribeUDBInstancePhpMyAdminURL08(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "DescribeUDBInstancePhpMyAdminURLResponse", "str_eq"),
+			ctx.NewValidator("PMAPath", "", "ne"),
 		},
 		MaxRetries:    0,
 		RetryInterval: 0 * time.Second,
@@ -390,6 +395,8 @@ func testSet488DescribeUDBInstance10(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.Name", ctx.Must(utest.Concat("rename_", ctx.GetVar("DBTypeId"))), "str_eq"),
+			ctx.NewValidator("DataSet.0.DBTypeId", ctx.GetVar("DBTypeId"), "str_eq"),
 		},
 		MaxRetries:    20,
 		RetryInterval: 3 * time.Second,
@@ -481,6 +488,8 @@ func testSet488DescribeUDBInstance13(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.DBTypeId", ctx.GetVar("DBTypeId"), "str_eq"),
+			ctx.NewValidator("DataSet.0.State", "Running", "str_eq"),
 		},
 		MaxRetries:    100,
 		RetryInterval: 3 * time.Second,
@@ -542,6 +551,8 @@ func testSet488DescribeUDBInstance15(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.DBTypeId", ctx.GetVar("DBTypeId"), "str_eq"),
+			ctx.NewValidator("DataSet.0.State", "Shutoff", "str_eq"),
 		},
 		MaxRetries:    100,
 		RetryInterval: 3 * time.Second,
@@ -603,6 +614,8 @@ func testSet488DescribeUDBInstance17(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.DBTypeId", ctx.GetVar("DBTypeId"), "str_eq"),
+			ctx.NewValidator("DataSet.0.State", "Running", "str_eq"),
 		},
 		MaxRetries:    100,
 		RetryInterval: 3 * time.Second,
@@ -664,6 +677,8 @@ func testSet488DescribeUDBInstance19(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.DBTypeId", ctx.GetVar("DBTypeId"), "str_eq"),
+			ctx.NewValidator("DataSet.0.State", "Shutoff", "str_eq"),
 		},
 		MaxRetries:    100,
 		RetryInterval: 3 * time.Second,

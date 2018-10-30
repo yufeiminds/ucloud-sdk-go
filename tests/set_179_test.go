@@ -92,6 +92,7 @@ func testSet179DescribeUDBParamGroup01(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "DescribeUDBParamGroupResponse", "str_eq"),
 		},
 		MaxRetries:    0,
 		RetryInterval: 0 * time.Second,
@@ -166,6 +167,7 @@ func testSet179DescribeUDBInstanceState03(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("State", "Running", "str_eq"),
 		},
 		MaxRetries:    10,
 		RetryInterval: 10 * time.Second,
@@ -188,16 +190,13 @@ func testSet179CreateUDBRouteInstance04(ctx *utest.TestContext) {
 	ctx.NoError(utest.SetReqValue(req, "Zone", ctx.GetVar("Zone")))
 
 	ctx.NoError(utest.SetReqValue(req, "DBTypeId", ctx.GetVar("DBTypeId")))
-	ctx.NoError(utest.SetReqValue(req, "ChargeType", "Month"))
-
-	ctx.NoError(utest.SetReqValue(req, "Quantity", "1"))
 	ctx.NoError(utest.SetReqValue(req, "Name", "mongos-auto"))
 	ctx.NoError(utest.SetReqValue(req, "Port", ctx.GetVar("Port")))
 	ctx.NoError(utest.SetReqValue(req, "ParamGroupId", ctx.Must(utest.SearchValue(ctx.GetVar("DataSet_paramGroup"), "GroupName", ctx.GetVar("GroupNameMongos"), "GroupId"))))
 	ctx.NoError(utest.SetReqValue(req, "MemoryLimit", ctx.GetVar("MemoryLimit")))
 	ctx.NoError(utest.SetReqValue(req, "DiskSpace", ctx.GetVar("DiskSpace")))
-
-	ctx.NoError(utest.SetReqValue(req, "ConfigsvrId.0", ctx.GetVar("configid")))
+	ctx.NoError(utest.SetReqValue(req, "ConfigsvrDBIds", ctx.GetVar("configid")))
+	ctx.NoError(utest.SetReqValue(req, "ChargeType", "Month"))
 
 	testCase := utest.TestCase{
 		Invoker: func() (interface{}, error) {
@@ -205,6 +204,7 @@ func testSet179CreateUDBRouteInstance04(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "CreateUDBRouteInstanceResponse", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
