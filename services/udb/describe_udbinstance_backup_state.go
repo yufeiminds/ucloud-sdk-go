@@ -28,6 +28,12 @@ type DescribeUDBInstanceBackupStateResponse struct {
 
 	// 备份状态 0 Backuping // 备份中 1 Success // 备份成功 2 Failed // 备份失败 3 Expired // 备份过期
 	State string
+
+	// 备份所占空间大小
+	BackupSize int
+
+	// 备份截止时间
+	BackupEndTime int
 }
 
 // NewDescribeUDBInstanceBackupStateRequest will create request of DescribeUDBInstanceBackupState action.

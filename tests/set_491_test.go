@@ -294,7 +294,7 @@ func testSet491DescribeUDBInstanceBinlog07(ctx *utest.TestContext) {
 	ctx.NoError(utest.SetReqValue(req, "Zone", ctx.GetVar("Zone")))
 
 	ctx.NoError(utest.SetReqValue(req, "DBId", ctx.GetVar("DBId")))
-	ctx.NoError(utest.SetReqValue(req, "BeginTime", ctx.Must(utest.Calculate('-', ctx.Must(utest.GetTimestamp("10")), 86400*7))))
+	ctx.NoError(utest.SetReqValue(req, "BeginTime", ctx.Must(utest.Calculate("-", ctx.Must(utest.GetTimestamp("10")), 86400*7))))
 	ctx.NoError(utest.SetReqValue(req, "EndTime", ctx.Must(utest.GetTimestamp("10"))))
 
 	testCase := utest.TestCase{
@@ -452,7 +452,7 @@ func testSet491BackupUDBInstanceSlowLog12(ctx *utest.TestContext) {
 	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
 
 	ctx.NoError(utest.SetReqValue(req, "DBId", ctx.GetVar("DBId")))
-	ctx.NoError(utest.SetReqValue(req, "BeginTime", ctx.Must(utest.Calculate("(${u_get_timestamp(10"))))
+	ctx.NoError(utest.SetReqValue(req, "BeginTime", ctx.Must(utest.Calculate("-", ctx.Must(utest.GetTimestamp("10")), 86400*7))))
 	ctx.NoError(utest.SetReqValue(req, "EndTime", ctx.Must(utest.GetTimestamp("10"))))
 	ctx.NoError(utest.SetReqValue(req, "BackupName", "auto_slowlog_package"))
 
