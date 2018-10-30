@@ -34,7 +34,7 @@ type CreateUDBRouteInstanceRequest struct {
 	DiskSpace *int `required:"true"`
 
 	// 配置服务器的dbid，允许一个或者三个
-	ConfigsvrDBIds []string `required:"true"`
+	ConfigsvrId []string `required:"true"`
 
 	// Year， Month， Dynamic，Trial，默认: Month
 	ChargeType *string `required:"false"`
