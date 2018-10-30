@@ -18,7 +18,7 @@ func TestSet242(t *testing.T) {
 	ctx.SetVar("Zone", "cn-sh2-02")
 
 	ctx.SetVar("Region", "cn-bj2")
-	ctx.SetVar("Zone", "cn-bj2-05")
+	ctx.SetVar("Zone", "cn-bj2-03")
 
 	testSet242DescribeURedisPrice00(&ctx)
 	testSet242CreateURedisGroup01(&ctx)

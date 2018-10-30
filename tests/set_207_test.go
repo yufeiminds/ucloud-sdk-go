@@ -18,7 +18,7 @@ func TestSet207(t *testing.T) {
 	ctx.SetVar("Zone", "cn-sh2-02")
 
 	ctx.SetVar("Region", "cn-bj2")
-	ctx.SetVar("Zone", "cn-bj2-05")
+	ctx.SetVar("Zone", "cn-bj2-03")
 	ctx.SetVar("DBTypeId", "percona-5.7")
 	ctx.SetVar("InstanceMode", "Normal")
 	ctx.SetVar("InstanceType", "Normal")

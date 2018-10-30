@@ -18,7 +18,7 @@ func TestSet499(t *testing.T) {
 	ctx.SetVar("Zone", "cn-sh2-02")
 
 	ctx.SetVar("Region", "cn-bj2")
-	ctx.SetVar("Zone", "cn-bj2-05")
+	ctx.SetVar("Zone", "cn-bj2-03")
 	ctx.SetVar("DBTypeId", "percona-5.5")
 	ctx.SetVar("InstanceMode", "HA")
 	ctx.SetVar("InstanceType", "SATA_SSD")

@@ -81,7 +81,7 @@ type UDBInstanceSet struct {
 	DiskUsedSize float64
 
 	// DB实例数据文件大小，单位GB
-	DataFileSize int
+	DataFileSize float64
 
 	// DB实例系统文件大小，单位GB
 	SystemFileSize int
