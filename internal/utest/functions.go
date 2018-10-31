@@ -167,8 +167,9 @@ func joinAsString(sep string, input ...interface{}) (string, error) {
 }
 
 // Calculate will to calculate two number by operator
-func Calculate(op interface{}, opValues ...interface{}) (int, error) {
-	if len(opValues) == 0 {
+func Calculate(op interface{}, rvL ...interface{}) (int, error) {
+	l := len(rvL)
+	if l == 0 {
 		v, err := toInt(op)
 		if err != nil {
 			return 0, err
@@ -176,14 +177,17 @@ func Calculate(op interface{}, opValues ...interface{}) (int, error) {
 		return v, nil
 	}
 
-	sum := 0
-	for i := 0; i < len(opValues); i++ {
-		v, err := toInt(opValues[i])
+	if l < 2 {
+		return 0, errors.Errorf("not enough arguments, expect least two item, got %s", op, len(rvL))
+	}
+
+	vL := make([]int, l)
+	for i := 0; i < l; i++ {
+		v, err := toInt(rvL[i])
 		if err != nil {
 			return 0, err
 		}
-
-		sum += v
+		vL[i] = v
 	}
 
 	opSymbol, err := toString(op)
@@ -193,14 +197,22 @@ func Calculate(op interface{}, opValues ...interface{}) (int, error) {
 
 	switch opSymbol {
 	case "+":
-		return sum, nil
+		return caculateInt(func(a, b int) int { return a + b }, vL...), nil
 	case "-":
-		return sum, nil
+		return caculateInt(func(a, b int) int { return a - b }, vL...), nil
 	case "*":
-		return sum, nil
+		return caculateInt(func(a, b int) int { return a * b }, vL...), nil
 	default:
 		return 0, errors.Errorf("function Calculate has not support %s", op)
 	}
+}
+
+func caculateInt(fn func(a, b int) int, vL ...int) int {
+	r := fn(vL[0], vL[1])
+	for _, v := range vL[2:] {
+		r = fn(r, v)
+	}
+	return r
 }
 
 // SearchValue will search key/value in an collection and return the value of destination key

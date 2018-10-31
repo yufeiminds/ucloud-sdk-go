@@ -180,7 +180,7 @@ func TestCalculate(t *testing.T) {
 	}{
 		{"sum", args{"1", "1", "+"}, 2, false},
 		{"sub", args{"2", "1", "-"}, 1, false},
-		{"multi", args{"1", "1", "*"}, 1, false},
+		{"multi", args{"1", "3", "*"}, 3, false},
 
 		{"number", args{"1", 1, "+"}, 2, false},
 		{"not number", args{"1", "x", "+"}, 0, true},
