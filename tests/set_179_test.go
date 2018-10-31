@@ -196,7 +196,7 @@ func testSet179CreateUDBRouteInstance04(ctx *utest.TestContext) {
 	ctx.NoError(utest.SetReqValue(req, "MemoryLimit", ctx.GetVar("MemoryLimit")))
 	ctx.NoError(utest.SetReqValue(req, "DiskSpace", ctx.GetVar("DiskSpace")))
 
-	ctx.NoError(utest.SetReqValue(req, "ConfigsvrId.0", ctx.GetVar("configid")))
+	ctx.NoError(utest.SetReqValue(req, "ConfigsvrId", ctx.GetVar("configid")))
 
 	testCase := utest.TestCase{
 		Invoker: func() (interface{}, error) {
