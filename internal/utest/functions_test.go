@@ -254,3 +254,31 @@ func TestGetUUID(t *testing.T) {
 		t.Errorf("GetUUID() length is %v, want %v", length, 4)
 	}
 }
+
+func TestGetNotEqual(t *testing.T) {
+	type args struct {
+		v  interface{}
+		vL []interface{}
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    string
+		wantErr bool
+	}{
+		{"hit", args{1, []interface{}{1, 2}}, "2", false},
+		{"miss", args{1, []interface{}{1, 1}}, "1", false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := GetNotEqual(tt.args.v, tt.args.vL...)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetNotEqual() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("GetNotEqual() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

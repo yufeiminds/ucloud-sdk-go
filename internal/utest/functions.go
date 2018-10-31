@@ -85,6 +85,49 @@ func GetRegionImage(input interface{}) (string, error) {
 	return "", errors.Errorf("cannot get region image, invalid region %s", region)
 }
 
+var udpnResource = map[string]string{
+	"cn-gd": "uvnet-sfcosa",
+}
+
+// GetUDPNRegionResource the vpc id for udpn peer destinition
+func GetUDPNRegionResource(input interface{}) (string, error) {
+	region, err := toString(input)
+	if err != nil {
+		return "", err
+	}
+	if img, ok := udpnResource[region]; ok {
+		return img, nil
+	}
+	return "", errors.Errorf("cannot get udpn region resource, invalid region %s", region)
+}
+
+// GetNotEqual will return the first item of vL that is not equal to v
+func GetNotEqual(v interface{}, vL ...interface{}) (string, error) {
+	if len(vL) < 2 {
+		return "", errors.Errorf("cannot return value")
+	}
+
+	vs, err := toString(v)
+	if err != nil {
+		return "", err
+	}
+
+	target := vs
+	for _, c := range vL {
+		target, err = toString(c)
+		if err != nil {
+			return "", err
+		}
+
+		if vs != target {
+			break
+		}
+	}
+
+	return target, nil
+}
+
+// GetTimestamp will return the timestamp string
 func GetTimestamp(input interface{}) (string, error) {
 	strLen, err := toInt(input)
 	if err != nil {
@@ -101,10 +144,12 @@ func getTimestamp(strLen int) (string, error) {
 	return strconv.FormatInt(time.Now().UnixNano(), 10)[:strLen], nil
 }
 
+// Concat will concat any data as string
 func Concat(input ...interface{}) (string, error) {
 	return joinAsString("", input...)
 }
 
+// ConcatWithVertical will concat any data as string join with '|'
 func ConcatWithVertical(input ...interface{}) (string, error) {
 	return joinAsString("|", input...)
 }
@@ -190,6 +235,7 @@ func SearchValue(arr interface{}, originKey string, originValue interface{}, des
 	return "", errors.Errorf("value of key: %s is not found", destKey)
 }
 
+// GetUUID will return uuid string
 func GetUUID() (string, error) {
 	items := []string{}
 	for _, strLen := range []int{8, 4, 4, 16} {
