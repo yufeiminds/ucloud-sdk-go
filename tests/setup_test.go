@@ -31,6 +31,7 @@ import (
 	iunet "github.com/ucloud/ucloud-sdk-go/internal/services/unet"
 )
 
+var config *ucloud.Config
 var client *ucloud.Client
 var uhostClient *uhost.UHostClient
 var unetClient *unet.UNetClient
@@ -66,6 +67,8 @@ func testSetup() {
 	cfg.LogLevel = log.DebugLevel
 	cfg.Region = os.Getenv("UCLOUD_REGION")
 	cfg.ProjectId = os.Getenv("UCLOUD_PROJECT_ID")
+
+	config = &cfg
 
 	credential := auth.NewCredential()
 	credential.PrivateKey = os.Getenv("UCLOUD_PRIVATE_KEY")
