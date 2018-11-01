@@ -408,7 +408,7 @@ func testSet1622DeleteVPC12(ctx *utest.TestContext) {
 
 	req := vpcClient.NewDeleteVPCRequest()
 
-	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
+	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("v_peer2")))
 
 	ctx.NoError(utest.SetReqValue(req, "VPCId", ctx.GetVar("dest_vpc_id")))
 
