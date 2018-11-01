@@ -231,7 +231,7 @@ func testSet1622CreateVPCIntercom06(ctx *utest.TestContext) {
 	ctx.NoError(utest.SetReqValue(req, "VPCId", ctx.GetVar("src_vpc_id")))
 	ctx.NoError(utest.SetReqValue(req, "DstVPCId", ctx.GetVar("dest_vpc_id")))
 	ctx.NoError(utest.SetReqValue(req, "DstRegion", ctx.Must(utest.GetNotEqual(ctx.GetVar("Region"), ctx.GetVar("peer_1"), ctx.GetVar("peer_2")))))
-	ctx.NoError(utest.SetReqValue(req, "DstProjectId", config.Region))
+	ctx.NoError(utest.SetReqValue(req, "DstProjectId", config.ProjectId))
 
 	testCase := utest.TestCase{
 		Invoker: func() (interface{}, error) {
@@ -323,7 +323,7 @@ func testSet1622DeleteVPCIntercom09(ctx *utest.TestContext) {
 	ctx.NoError(utest.SetReqValue(req, "VPCId", ctx.GetVar("src_vpc_id")))
 	ctx.NoError(utest.SetReqValue(req, "DstVPCId", ctx.GetVar("dest_vpc_id")))
 	ctx.NoError(utest.SetReqValue(req, "DstRegion", ctx.GetVar("v_peer2")))
-	ctx.NoError(utest.SetReqValue(req, "DstProjectId", config.Region))
+	ctx.NoError(utest.SetReqValue(req, "DstProjectId", config.ProjectId))
 
 	testCase := utest.TestCase{
 		Invoker: func() (interface{}, error) {
