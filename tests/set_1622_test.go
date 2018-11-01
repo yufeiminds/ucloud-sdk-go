@@ -44,7 +44,6 @@ func testSet1622GetUDPNLineList00(ctx *utest.TestContext) {
 	req := udpnClient.NewGetUDPNLineListRequest()
 
 	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
-	ctx.NoError(utest.SetReqValue(req, "ProjectId", ctx.GetVar("project_id")))
 
 	testCase := utest.TestCase{
 		Invoker: func() (interface{}, error) {
@@ -72,7 +71,7 @@ func testSet1622CreateVPC01(ctx *utest.TestContext) {
 	req := vpcClient.NewCreateVPCRequest()
 
 	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
-	ctx.NoError(utest.SetReqValue(req, "ProjectId", ctx.GetVar("project_id")))
+
 	ctx.NoError(utest.SetReqValue(req, "Name", "VPC_TEST"))
 	ctx.NoError(utest.SetReqValue(req, "Network", "192.168.0.0/16"))
 
@@ -103,7 +102,7 @@ func testSet1622CreateVPC02(ctx *utest.TestContext) {
 	req := vpcClient.NewCreateVPCRequest()
 
 	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("v_peer2")))
-	ctx.NoError(utest.SetReqValue(req, "ProjectId", ctx.GetVar("project_id")))
+
 	ctx.NoError(utest.SetReqValue(req, "Name", "VPC_TEST"))
 	ctx.NoError(utest.SetReqValue(req, "Network", "192.168.0.0/16"))
 
@@ -138,8 +137,6 @@ func testSet1622GetUDPNPrice03(ctx *utest.TestContext) {
 	ctx.NoError(utest.SetReqValue(req, "Peer2", ctx.GetVar("v_peer2")))
 	ctx.NoError(utest.SetReqValue(req, "Bandwidth", "2"))
 
-	ctx.NoError(utest.SetReqValue(req, "ProjectId", ctx.GetVar("project_id")))
-
 	testCase := utest.TestCase{
 		Invoker: func() (interface{}, error) {
 			return udpnClient.GetUDPNPrice(req)
@@ -172,8 +169,6 @@ func testSet1622AllocateUDPN04(ctx *utest.TestContext) {
 	ctx.NoError(utest.SetReqValue(req, "Bandwidth", ctx.GetVar("create_udpn_bw")))
 	ctx.NoError(utest.SetReqValue(req, "ChargeType", ctx.GetVar("charge_type")))
 
-	ctx.NoError(utest.SetReqValue(req, "ProjectId", ctx.GetVar("project_id")))
-
 	testCase := utest.TestCase{
 		Invoker: func() (interface{}, error) {
 			return udpnClient.AllocateUDPN(req)
@@ -204,8 +199,6 @@ func testSet1622DescribeUDPN05(ctx *utest.TestContext) {
 
 	ctx.NoError(utest.SetReqValue(req, "UDPNId", ctx.GetVar("UdpnId")))
 
-	ctx.NoError(utest.SetReqValue(req, "ProjectId", ctx.GetVar("project_id")))
-
 	testCase := utest.TestCase{
 		Invoker: func() (interface{}, error) {
 			return udpnClient.DescribeUDPN(req)
@@ -234,7 +227,7 @@ func testSet1622CreateVPCIntercom06(ctx *utest.TestContext) {
 	req := vpcClient.NewCreateVPCIntercomRequest()
 
 	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
-	ctx.NoError(utest.SetReqValue(req, "ProjectId", ctx.GetVar("project_id")))
+
 	ctx.NoError(utest.SetReqValue(req, "VPCId", ctx.GetVar("src_vpc_id")))
 	ctx.NoError(utest.SetReqValue(req, "DstVPCId", ctx.GetVar("dest_vpc_id")))
 	ctx.NoError(utest.SetReqValue(req, "DstRegion", ctx.Must(utest.GetNotEqual(ctx.GetVar("Region"), ctx.GetVar("peer_1"), ctx.GetVar("peer_2")))))
@@ -269,7 +262,6 @@ func testSet1622GetUDPNUpgradePrice07(ctx *utest.TestContext) {
 
 	ctx.NoError(utest.SetReqValue(req, "UDPNId", ctx.GetVar("UdpnId")))
 	ctx.NoError(utest.SetReqValue(req, "Bandwidth", ctx.GetVar("upgrade_udpn_bw")))
-	ctx.NoError(utest.SetReqValue(req, "ProjectId", ctx.GetVar("project_id")))
 
 	testCase := utest.TestCase{
 		Invoker: func() (interface{}, error) {
@@ -301,8 +293,6 @@ func testSet1622ModifyUDPNBandwidth08(ctx *utest.TestContext) {
 	ctx.NoError(utest.SetReqValue(req, "UDPNId", ctx.GetVar("UdpnId")))
 	ctx.NoError(utest.SetReqValue(req, "Bandwidth", ctx.GetVar("upgrade_udpn_bw")))
 
-	ctx.NoError(utest.SetReqValue(req, "ProjectId", ctx.GetVar("project_id")))
-
 	testCase := utest.TestCase{
 		Invoker: func() (interface{}, error) {
 			return udpnClient.ModifyUDPNBandwidth(req)
@@ -329,7 +319,7 @@ func testSet1622DeleteVPCIntercom09(ctx *utest.TestContext) {
 	req := vpcClient.NewDeleteVPCIntercomRequest()
 
 	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
-	ctx.NoError(utest.SetReqValue(req, "ProjectId", ctx.GetVar("project_id")))
+
 	ctx.NoError(utest.SetReqValue(req, "VPCId", ctx.GetVar("src_vpc_id")))
 	ctx.NoError(utest.SetReqValue(req, "DstVPCId", ctx.GetVar("dest_vpc_id")))
 	ctx.NoError(utest.SetReqValue(req, "DstRegion", ctx.GetVar("v_peer2")))
@@ -363,7 +353,6 @@ func testSet1622ReleaseUDPN10(ctx *utest.TestContext) {
 	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
 
 	ctx.NoError(utest.SetReqValue(req, "UDPNId", ctx.GetVar("UdpnId")))
-	ctx.NoError(utest.SetReqValue(req, "ProjectId", ctx.GetVar("project_id")))
 
 	testCase := utest.TestCase{
 		Invoker: func() (interface{}, error) {
@@ -391,7 +380,7 @@ func testSet1622DeleteVPC11(ctx *utest.TestContext) {
 	req := vpcClient.NewDeleteVPCRequest()
 
 	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
-	ctx.NoError(utest.SetReqValue(req, "ProjectId", ctx.GetVar("project_id")))
+
 	ctx.NoError(utest.SetReqValue(req, "VPCId", ctx.GetVar("src_vpc_id")))
 
 	testCase := utest.TestCase{
@@ -420,7 +409,7 @@ func testSet1622DeleteVPC12(ctx *utest.TestContext) {
 	req := vpcClient.NewDeleteVPCRequest()
 
 	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
-	ctx.NoError(utest.SetReqValue(req, "ProjectId", ctx.GetVar("project_id")))
+
 	ctx.NoError(utest.SetReqValue(req, "VPCId", ctx.GetVar("dest_vpc_id")))
 
 	testCase := utest.TestCase{

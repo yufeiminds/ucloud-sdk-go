@@ -86,7 +86,8 @@ func GetRegionImage(input interface{}) (string, error) {
 }
 
 var udpnResource = map[string]string{
-	"cn-gd": "uvnet-sfcosa",
+	"cn-sh2": "cn-bj2",
+	"cn-bj2": "cn-sh2",
 }
 
 // GetUDPNRegionResource the vpc id for udpn peer destinition
