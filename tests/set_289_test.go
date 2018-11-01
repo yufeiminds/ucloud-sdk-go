@@ -169,6 +169,7 @@ func testSet289DescribeUDisk03(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.Status", "Available", "str_eq"),
 		},
 		MaxRetries:    0,
 		RetryInterval: 0 * time.Second,
@@ -229,6 +230,9 @@ func testSet289DescribeUDisk05(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.SnapshotLimit", "3", "str_eq"),
+			ctx.NewValidator("DataSet.0.Status", "Available", "str_eq"),
+			ctx.NewValidator("DataSet.0.SnapshotCount", "1", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -257,6 +261,8 @@ func testSet289DescribeSnapshot06(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("UHostSnapshotSet.0.DiskId", "udisk_nofz_id", "str_eq"),
+			ctx.NewValidator("UHostSnapshotSet.0.State", "Normal", "str_eq"),
 		},
 		MaxRetries:    50,
 		RetryInterval: 3 * time.Second,
@@ -317,6 +323,8 @@ func testSet289DescribeSnapshot08(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("UHostSnapshotSet.0.DiskId", "udisk_nofz_id", "str_eq"),
+			ctx.NewValidator("UHostSnapshotSet.0.State", "Normal", "str_eq"),
 		},
 		MaxRetries:    6,
 		RetryInterval: 30 * time.Second,
@@ -377,6 +385,8 @@ func testSet289DescribeSnapshot10(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("UHostSnapshotSet.0.DiskId", "udisk_nofz_id", "str_eq"),
+			ctx.NewValidator("UHostSnapshotSet.0.State", "Normal", "str_eq"),
 		},
 		MaxRetries:    6,
 		RetryInterval: 30 * time.Second,
@@ -537,6 +547,7 @@ func testSet289DescribeUDisk15(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.Status", "Available", "str_eq"),
 		},
 		MaxRetries:    20,
 		RetryInterval: 3 * time.Second,
@@ -565,6 +576,7 @@ func testSet289DeleteSnapshot16(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("SnapshotId", ctx.GetVar("snapshot_id"), "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -593,6 +605,8 @@ func testSet289DescribeSnapshot17(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("TotalCount", "0", "str_eq"),
+			ctx.NewValidator("PerDiskQuota", "3", "str_eq"),
 		},
 		MaxRetries:    0,
 		RetryInterval: 0 * time.Second,
@@ -621,6 +635,7 @@ func testSet289DeleteSnapshot18(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("SnapshotId", ctx.GetVar("snapshot_id1"), "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -649,6 +664,8 @@ func testSet289DescribeSnapshot19(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("TotalCount", "0", "str_eq"),
+			ctx.NewValidator("PerDiskQuota", "3", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -677,6 +694,7 @@ func testSet289DeleteSnapshot20(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("SnapshotId", ctx.GetVar("snapshot_id2"), "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -705,6 +723,8 @@ func testSet289DescribeSnapshot21(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("TotalCount", "0", "str_eq"),
+			ctx.NewValidator("PerDiskQuota", "3", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -761,6 +781,8 @@ func testSet289DescribeUDisk23(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.Name", "clone_from_kz_nofz", "str_eq"),
+			ctx.NewValidator("DataSet.0.Status", "Available", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 30 * time.Second,
@@ -817,6 +839,8 @@ func testSet289DescribeUDisk25(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.Name", "clone_from_kz_fz", "str_eq"),
+			ctx.NewValidator("DataSet.0.Status", "Available", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 30 * time.Second,

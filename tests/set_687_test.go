@@ -61,6 +61,7 @@ func testSet687GetProjectList00(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "GetProjectListResponse", "str_eq"),
 		},
 		MaxRetries:    0,
 		RetryInterval: 0 * time.Second,
@@ -157,6 +158,7 @@ func testSet687UpdateSubnetAttribute03(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "UpdateSubnetAttributeResponse", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -310,6 +312,14 @@ func testSet687DescribeSubnet08(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.VPCId", ctx.GetVar("VPCId_1"), "str_eq"),
+			ctx.NewValidator("DataSet.0.VPCName", ctx.GetVar("VPC_name_1"), "str_eq"),
+			ctx.NewValidator("DataSet.0.SubnetId", ctx.GetVar("SubnetId_1_1"), "str_eq"),
+			ctx.NewValidator("DataSet.0.SubnetName", ctx.GetVar("Subnet_name_1_1"), "str_eq"),
+			ctx.NewValidator("DataSet.0.Tag", "qa", "str_eq"),
+			ctx.NewValidator("DataSet.0.Remark", ctx.GetVar("remark"), "str_eq"),
+			ctx.NewValidator("DataSet.0.SubnetType", "2", "str_eq"),
+			ctx.NewValidator("DataSet.0.Netmask", "24", "str_eq"),
 		},
 		MaxRetries:    0,
 		RetryInterval: 0 * time.Second,
@@ -375,6 +385,9 @@ func testSet687DescribeVIP10(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("VIPSet.0.VPCId", ctx.GetVar("VPCId_1"), "str_eq"),
+			ctx.NewValidator("VIPSet.0.VIPId", ctx.GetVar("VIPId_1"), "str_eq"),
+			ctx.NewValidator("VIPSet.0.SubnetId", ctx.GetVar("SubnetId_1_1"), "str_eq"),
 		},
 		MaxRetries:    0,
 		RetryInterval: 0 * time.Second,
@@ -407,6 +420,9 @@ func testSet687DescribeSubnetResource11(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("TotalCount", "1", "str_eq"),
+			ctx.NewValidator("DataSet.0.ResourceId", ctx.GetVar("VIPId_1"), "str_eq"),
+			ctx.NewValidator("DataSet.0.IP", ctx.GetVar("VIP_ip_1"), "str_eq"),
 		},
 		MaxRetries:    0,
 		RetryInterval: 0 * time.Second,
@@ -633,6 +649,8 @@ func testSet687DescribeVPCIntercom19(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.VPCId", ctx.GetVar("VPCId_2"), "str_eq"),
+			ctx.NewValidator("DataSet.0.DstRegion", ctx.GetVar("Region"), "str_eq"),
 		},
 		MaxRetries:    0,
 		RetryInterval: 0 * time.Second,

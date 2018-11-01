@@ -159,6 +159,9 @@ func testSet283DescribeUDisk03(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "DescribeUDiskResponse", "str_eq"),
+			ctx.NewValidator("DataSet.0.Status", "Available", "str_eq"),
+			ctx.NewValidator("DataSet.0.Tag", "Default", "str_eq"),
 		},
 		MaxRetries:    20,
 		RetryInterval: 3 * time.Second,
@@ -218,6 +221,7 @@ func testSet283DescribeUDisk05(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.Name", ctx.Must(utest.Concat("auto_", ctx.GetVar("Name"))), "str_eq"),
 		},
 		MaxRetries:    0,
 		RetryInterval: 0 * time.Second,
@@ -247,6 +251,7 @@ func testSet283DescribeImage06(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "DescribeImageResponse", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -288,7 +293,6 @@ func testSet283CreateUHostInstance07(ctx *utest.TestContext) {
 	ctx.NoError(utest.SetReqValue(req, "HotplugFeature", "false"))
 	ctx.NoError(utest.SetReqValue(req, "HostType", "N1"))
 	ctx.NoError(utest.SetReqValue(req, "UHostType", "Normal"))
-	ctx.NoError(utest.SetReqValue(req, "GPU", 0))
 
 	testCase := utest.TestCase{
 		Invoker: func() (interface{}, error) {
@@ -325,6 +329,8 @@ func testSet283DescribeUHostInstance08(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "DescribeUHostInstanceResponse", "str_eq"),
+			ctx.NewValidator("UHostSet.0.UHostId", ctx.GetVar("uhost_id"), "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -355,6 +361,7 @@ func testSet283DescribeUHostLite09(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("TotalCount", "0", "ne"),
 		},
 		MaxRetries:    0,
 		RetryInterval: 0 * time.Second,
@@ -414,6 +421,7 @@ func testSet283DescribeUDisk11(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.Status", "InUse", "str_eq"),
 		},
 		MaxRetries:    20,
 		RetryInterval: 3 * time.Second,
@@ -443,6 +451,8 @@ func testSet283DetachUDisk12(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("UDiskId", ctx.GetVar("udisk_nofz_id"), "str_eq"),
+			ctx.NewValidator("UHostId", ctx.GetVar("uhost_id"), "str_eq"),
 		},
 		MaxRetries:    0,
 		RetryInterval: 0 * time.Second,
@@ -473,6 +483,7 @@ func testSet283DescribeUDisk13(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.Status", "Available", "str_eq"),
 		},
 		MaxRetries:    50,
 		RetryInterval: 6 * time.Second,
@@ -557,6 +568,7 @@ func testSet283DescribeUHostInstance16(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("UHostSet.0.State", "Stopped", "str_eq"),
 		},
 		MaxRetries:    0,
 		RetryInterval: 0 * time.Second,

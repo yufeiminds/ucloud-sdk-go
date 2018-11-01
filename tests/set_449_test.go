@@ -66,8 +66,6 @@ func testSet449CreateUHostInstance00(ctx *utest.TestContext) {
 	ctx.NoError(utest.SetReqValue(req, "HotplugFeature", "false"))
 	ctx.NoError(utest.SetReqValue(req, "HostType", "N2"))
 
-	ctx.NoError(utest.SetReqValue(req, "GPU", 0))
-
 	testCase := utest.TestCase{
 		Invoker: func() (interface{}, error) {
 			return uhostClient.CreateUHostInstance(req)
@@ -103,6 +101,17 @@ func testSet449DescribeUHostInstance01(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("UHostSet.0.BasicImageId", ctx.GetVar("ImageID"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.CPU", ctx.GetVar("CreateCPU"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.Memory", ctx.GetVar("CreateMem"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.UHostId", ctx.GetVar("hostId"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.Name", ctx.GetVar("Name"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.TotalDiskSpace", ctx.GetVar("CreateDiskspace"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.HostType", "N2", "str_eq"),
+			ctx.NewValidator("UHostSet.0.UHostType", "Normal", "str_eq"),
+			ctx.NewValidator("UHostSet.0.StorageType", "LocalDisk", "str_eq"),
+			ctx.NewValidator("UHostSet.0.State", "Running", "str_eq"),
+			ctx.NewValidator("UHostSet.0.BootDiskState", "Normal", "str_eq"),
 		},
 		MaxRetries:    200,
 		RetryInterval: 30 * time.Second,
@@ -131,6 +140,7 @@ func testSet449StopUHostInstance02(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "StopUHostInstanceResponse", "str_eq"),
 		},
 		MaxRetries:    5,
 		RetryInterval: 30 * time.Second,
@@ -159,6 +169,16 @@ func testSet449DescribeUHostInstance03(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("UHostSet.0.BasicImageId", ctx.GetVar("ImageID"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.CPU", ctx.GetVar("CreateCPU"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.Memory", ctx.GetVar("CreateMem"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.UHostId", ctx.GetVar("hostId"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.Name", ctx.GetVar("Name"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.TotalDiskSpace", ctx.GetVar("CreateDiskspace"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.HostType", "N2", "str_eq"),
+			ctx.NewValidator("UHostSet.0.UHostType", "Normal", "str_eq"),
+			ctx.NewValidator("UHostSet.0.StorageType", "LocalDisk", "str_eq"),
+			ctx.NewValidator("UHostSet.0.State", "Stopped", "str_eq"),
 		},
 		MaxRetries:    30,
 		RetryInterval: 10 * time.Second,
@@ -217,6 +237,16 @@ func testSet449DescribeUHostInstance05(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("UHostSet.0.BasicImageId", ctx.GetVar("ImageID"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.Memory", ctx.GetVar("CreateMem"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.UHostId", ctx.GetVar("hostId"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.TotalDiskSpace", ctx.GetVar("CreateDiskspace"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.Name", ctx.GetVar("Name"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.CPU", ctx.GetVar("CreateCPU"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.HostType", "N2", "str_eq"),
+			ctx.NewValidator("UHostSet.0.UHostType", "Normal", "str_eq"),
+			ctx.NewValidator("UHostSet.0.StorageType", "LocalDisk", "str_eq"),
+			ctx.NewValidator("UHostSet.0.State", "Running", "str_eq"),
 		},
 		MaxRetries:    200,
 		RetryInterval: 30 * time.Second,
@@ -273,6 +303,7 @@ func testSet449DescribeUHostInstance07(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("UHostSet.0.State", "Stopped", "str_eq"),
 		},
 		MaxRetries:    30,
 		RetryInterval: 10 * time.Second,

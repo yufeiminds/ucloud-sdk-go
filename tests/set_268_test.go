@@ -178,6 +178,9 @@ func testSet268DescribeBandwidthPackage04(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSets.0.EIPId", ctx.GetVar("eip_id"), "str_eq"),
+			ctx.NewValidator("DataSets.0.Bandwidth", ctx.GetVar("bwp1_bw"), "str_eq"),
+			ctx.NewValidator("DataSets.0.BandwidthPackageId", ctx.GetVar("bwp_id1"), "str_eq"),
 		},
 		MaxRetries:    10,
 		RetryInterval: 10 * time.Second,
@@ -263,6 +266,9 @@ func testSet268DescribeBandwidthPackage07(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSets.0.EIPId", ctx.GetVar("eip_id"), "str_eq"),
+			ctx.NewValidator("DataSets.0.Bandwidth", ctx.GetVar("bwp2_bw"), "str_eq"),
+			ctx.NewValidator("DataSets.0.BandwidthPackageId", ctx.GetVar("bwp_id2"), "str_eq"),
 		},
 		MaxRetries:    10,
 		RetryInterval: 10 * time.Second,

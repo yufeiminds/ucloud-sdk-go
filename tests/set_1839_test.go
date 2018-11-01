@@ -72,7 +72,9 @@ func testSet1839GetUImagePrice00(ctx *utest.TestContext) {
 		Invoker: func() (interface{}, error) {
 			return iuhostClient.GetUImagePrice(req)
 		},
-		Validators:    []utest.TestValidator{},
+		Validators: []utest.TestValidator{
+			ctx.NewValidator("PriceSet.0.Price", "0", "str_eq"),
+		},
 		MaxRetries:    3,
 		RetryInterval: 10 * time.Second,
 		T:             ctx.T,
@@ -171,6 +173,15 @@ func testSet1839DescribeUHostInstance03(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("TotalCount", "1", "str_eq"),
+			ctx.NewValidator("UHostSet.0.CPU", ctx.GetVar("CreateCPU"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.Memory", ctx.GetVar("CreateMem"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.UHostId", ctx.GetVar("hostId"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.TotalDiskSpace", ctx.GetVar("CreateDiskspace"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.Name", ctx.GetVar("Name"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.BasicImageId", ctx.GetVar("ImageID"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.State", "Running", "str_eq"),
+			ctx.NewValidator("UHostSet.0.BootDiskState", "Normal", "str_eq"),
 		},
 		MaxRetries:    120,
 		RetryInterval: 30 * time.Second,
@@ -283,6 +294,13 @@ func testSet1839DescribeUHostInstance07(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("TotalCount", "1", "str_eq"),
+			ctx.NewValidator("UHostSet.0.CPU", ctx.GetVar("CreateCPU"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.Memory", ctx.GetVar("CreateMem"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.UHostId", ctx.GetVar("hostId"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.TotalDiskSpace", ctx.GetVar("CreateDiskspace"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.Tag", ctx.GetVar("ModifyTag"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.Name", ctx.GetVar("Name"), "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -340,6 +358,13 @@ func testSet1839DescribeUHostInstance09(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("TotalCount", "1", "str_eq"),
+			ctx.NewValidator("UHostSet.0.CPU", ctx.GetVar("CreateCPU"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.Memory", ctx.GetVar("CreateMem"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.UHostId", ctx.GetVar("hostId"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.TotalDiskSpace", ctx.GetVar("CreateDiskspace"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.Tag", ctx.GetVar("ModifyTag"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.Name", ctx.GetVar("ModifyName"), "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -397,6 +422,14 @@ func testSet1839DescribeUHostInstance11(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("TotalCount", "1", "str_eq"),
+			ctx.NewValidator("UHostSet.0.CPU", ctx.GetVar("CreateCPU"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.Memory", ctx.GetVar("CreateMem"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.UHostId", ctx.GetVar("hostId"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.TotalDiskSpace", ctx.GetVar("CreateDiskspace"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.Tag", ctx.GetVar("ModifyTag"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.Name", ctx.GetVar("ModifyName"), "str_eq"),
+			ctx.NewValidator("UHostSet.0.Remark", ctx.GetVar("ModifyRemark"), "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -455,7 +488,7 @@ func testSet1839GetUHostInstancePrice13(ctx *utest.TestContext) {
 			return uhostClient.GetUHostInstancePrice(req)
 		},
 		Validators: []utest.TestValidator{
-
+			ctx.NewValidator("PriceSet.0.Price", "0", "ne"),
 			ctx.NewValidator("RetCode", "0", "str_eq"),
 		},
 		MaxRetries:    3,
@@ -487,6 +520,7 @@ func testSet1839GetUHostUpgradePrice14(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Price", "0", "ne"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -515,6 +549,7 @@ func testSet1839GetUHostRenewPrice15(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("PriceSet.0.Price", "0", "ne"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -600,6 +635,7 @@ func testSet1839GetMetric18(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "GetMetricResponse", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -655,6 +691,7 @@ func testSet1839StopUHostInstance20(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "StopUHostInstanceResponse", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -683,6 +720,7 @@ func testSet1839DescribeUHostInstance21(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("UHostSet.0.State", "Stopped", "str_eq"),
 		},
 		MaxRetries:    30,
 		RetryInterval: 10 * time.Second,
@@ -712,6 +750,7 @@ func testSet1839StartUHostInstance22(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "StartUHostInstanceResponse", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 1 * time.Second,
@@ -740,6 +779,7 @@ func testSet1839DescribeUHostInstance23(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("UHostSet.0.State", "Running", "str_eq"),
 		},
 		MaxRetries:    30,
 		RetryInterval: 10 * time.Second,
@@ -768,6 +808,7 @@ func testSet1839PoweroffUHostInstance24(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("Action", "PoweroffUHostInstanceResponse", "str_eq"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 30 * time.Second,
@@ -796,6 +837,7 @@ func testSet1839DescribeUHostInstance25(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("UHostSet.0.State", "Stopped", "str_eq"),
 		},
 		MaxRetries:    30,
 		RetryInterval: 10 * time.Second,

@@ -161,6 +161,7 @@ func testSet220DescribeVServer03(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet", "1", "len_eq"),
 		},
 		MaxRetries:    10,
 		RetryInterval: 10 * time.Second,
@@ -224,6 +225,7 @@ func testSet220DescribeVServer05(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
+			ctx.NewValidator("DataSet.0.BackendSet", "1", "len_eq"),
 		},
 		MaxRetries:    10,
 		RetryInterval: 10 * time.Second,
