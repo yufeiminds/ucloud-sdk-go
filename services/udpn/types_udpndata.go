@@ -21,7 +21,7 @@ type UDPNData struct {
 	ChargeType string
 
 	// 带宽
-	Bandwidth string
+	Bandwidth int
 
 	// unix 时间戳 创建时间
 	CreateTime int
