@@ -167,27 +167,25 @@ func TestConcat(t *testing.T) {
 }
 
 func TestCalculate(t *testing.T) {
-	type args struct {
-		a  interface{}
-		b  interface{}
-		op string
-	}
+	type args []interface{}
 	tests := []struct {
 		name    string
 		args    args
 		want    int
 		wantErr bool
 	}{
-		{"sum", args{"1", "1", "+"}, 2, false},
-		{"sub", args{"2", "1", "-"}, 1, false},
-		{"multi", args{"1", "3", "*"}, 3, false},
+		{"sum", args{"+", "1", "1"}, 2, false},
+		{"sub", args{"-", "2", "1"}, 1, false},
+		{"multi", args{"*", "1", "3"}, 3, false},
 
-		{"number", args{"1", 1, "+"}, 2, false},
-		{"not number", args{"1", "x", "+"}, 0, true},
+		{"number", args{"+", "1", 1}, 2, false},
+		{"not number", args{"+", "1", "x"}, 0, true},
+
+		{"literal", args{"101010"}, 101010, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := Calculate(tt.args.op, tt.args.a, tt.args.b)
+			got, err := Calculate(tt.args[0], tt.args[1:]...)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Calculate() error = %v, wantErr %v", err, tt.wantErr)
 				return

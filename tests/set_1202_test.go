@@ -14,8 +14,8 @@ func TestSet1202(t *testing.T) {
 	ctx.T = t
 	ctx.Vars = map[string]interface{}{}
 
-	ctx.SetVar("Region", "cn-sh2")
-	ctx.SetVar("Zone", "cn-sh2-02")
+	ctx.SetVar("Region", "cn-bj2")
+	ctx.SetVar("Zone", "cn-bj2-02")
 
 	ctx.SetVar("Protocol", "memcache")
 	ctx.SetVar("ResourceType", "distributed")
