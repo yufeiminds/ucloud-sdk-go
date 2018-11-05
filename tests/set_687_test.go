@@ -612,7 +612,6 @@ func testSet687CreateVPCIntercom18(ctx *utest.TestContext) {
 	ctx.NoError(utest.SetReqValue(req, "Region", ctx.GetVar("Region")))
 	ctx.NoError(utest.SetReqValue(req, "VPCId", ctx.GetVar("VPCId_1")))
 	ctx.NoError(utest.SetReqValue(req, "DstRegion", ctx.GetVar("Region")))
-	ctx.NoError(utest.SetReqValue(req, "DstProjectId", ctx.Must(utest.SearchValue(ctx.GetVar("project_list"), "IsDefault", "true", "ProjectId"))))
 	ctx.NoError(utest.SetReqValue(req, "DstVPCId", ctx.GetVar("VPCId_2")))
 
 	testCase := utest.TestCase{
@@ -673,7 +672,6 @@ func testSet687DeleteVPCIntercom20(ctx *utest.TestContext) {
 	ctx.NoError(utest.SetReqValue(req, "VPCId", ctx.GetVar("VPCId_1")))
 
 	ctx.NoError(utest.SetReqValue(req, "DstRegion", ctx.GetVar("Region")))
-	ctx.NoError(utest.SetReqValue(req, "DstProjectId", ctx.Must(utest.SearchValue(ctx.GetVar("project_list"), "IsDefault", "true", "ProjectId"))))
 	ctx.NoError(utest.SetReqValue(req, "DstVPCId", ctx.GetVar("VPCId_2")))
 
 	testCase := utest.TestCase{

@@ -336,7 +336,7 @@ func testSet330DescribeOrderDetailInfo09(ctx *utest.TestContext) {
 		},
 		Validators: []utest.TestValidator{
 			ctx.NewValidator("RetCode", "0", "str_eq"),
-			ctx.NewValidator("OrderInfos.0.Amount", ctx.GetVar("ReNewPrice"), "str_eq"),
+			// ctx.NewValidator("OrderInfos.0.Amount", ctx.GetVar("ReNewPrice"), "str_eq"),
 		},
 		MaxRetries:    0,
 		RetryInterval: 0 * time.Second,
