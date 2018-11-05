@@ -65,6 +65,8 @@ func testSet471CreateUHostInstance00(ctx *utest.TestContext) {
 	ctx.NoError(utest.SetReqValue(req, "TimemachineFeature", "No"))
 	ctx.NoError(utest.SetReqValue(req, "HotplugFeature", "false"))
 
+	ctx.NoError(utest.SetReqValue(req, "GPU", 0))
+
 	testCase := utest.TestCase{
 		Invoker: func() (interface{}, error) {
 			return uhostClient.CreateUHostInstance(req)
@@ -106,7 +108,7 @@ func testSet471DescribeUHostInstance01(ctx *utest.TestContext) {
 			ctx.NewValidator("UHostSet.0.Name", ctx.GetVar("Name"), "str_eq"),
 			ctx.NewValidator("UHostSet.0.TotalDiskSpace", ctx.GetVar("CreateDiskspace"), "str_eq"),
 			ctx.NewValidator("UHostSet.0.StorageType", "LocalDisk", "str_eq"),
-			ctx.NewValidator("UHostSet.0.BasicImageId", ctx.GetVar("ImageID"), "str_eq"),
+			// ctx.NewValidator("UHostSet.0.BasicImageId", ctx.GetVar("ImageID"), "str_eq"),
 			ctx.NewValidator("UHostSet.0.BootDiskState", "Normal", "str_eq"),
 			ctx.NewValidator("UHostSet.0.State", "Running", "str_eq"),
 		},

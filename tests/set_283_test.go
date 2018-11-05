@@ -291,8 +291,9 @@ func testSet283CreateUHostInstance07(ctx *utest.TestContext) {
 	ctx.NoError(utest.SetReqValue(req, "BootDiskSpace", "20"))
 	ctx.NoError(utest.SetReqValue(req, "TimemachineFeature", "No"))
 	ctx.NoError(utest.SetReqValue(req, "HotplugFeature", "false"))
-	ctx.NoError(utest.SetReqValue(req, "HostType", "N1"))
+	// ctx.NoError(utest.SetReqValue(req, "HostType", "N1"))
 	ctx.NoError(utest.SetReqValue(req, "UHostType", "Normal"))
+	ctx.NoError(utest.SetReqValue(req, "GPU", 0)) // TODO: check
 
 	testCase := utest.TestCase{
 		Invoker: func() (interface{}, error) {

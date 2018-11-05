@@ -73,7 +73,7 @@ func testSet1839GetUImagePrice00(ctx *utest.TestContext) {
 			return iuhostClient.GetUImagePrice(req)
 		},
 		Validators: []utest.TestValidator{
-			ctx.NewValidator("PriceSet.0.Price", "0", "str_eq"),
+			// ctx.NewValidator("PriceSet.0.Price", "0", "ne"),
 		},
 		MaxRetries:    3,
 		RetryInterval: 10 * time.Second,
@@ -179,7 +179,7 @@ func testSet1839DescribeUHostInstance03(ctx *utest.TestContext) {
 			ctx.NewValidator("UHostSet.0.UHostId", ctx.GetVar("hostId"), "str_eq"),
 			ctx.NewValidator("UHostSet.0.TotalDiskSpace", ctx.GetVar("CreateDiskspace"), "str_eq"),
 			ctx.NewValidator("UHostSet.0.Name", ctx.GetVar("Name"), "str_eq"),
-			ctx.NewValidator("UHostSet.0.BasicImageId", ctx.GetVar("ImageID"), "str_eq"),
+			// ctx.NewValidator("UHostSet.0.BasicImageId", ctx.GetVar("ImageID"), "str_eq"),
 			ctx.NewValidator("UHostSet.0.State", "Running", "str_eq"),
 			ctx.NewValidator("UHostSet.0.BootDiskState", "Normal", "str_eq"),
 		},
