@@ -1,12 +1,9 @@
-package ubillings
+package ubill
 
 type ResourceTag struct {
 	KeyId string //标识名,见下表
 	Value string //标识信息
 }
-
-
-
 
 /*KeyId	Description
 name	名称(eg. “hello_vm”)
