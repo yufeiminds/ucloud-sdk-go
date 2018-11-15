@@ -92,7 +92,7 @@ func testSet2301AllocateEIP01(ctx *utest.TestContext) {
 }
 
 func testSet2301DescribeOrderDetailInfo02(ctx *utest.TestContext) {
-	time.Sleep(time.Duration(2) * time.Second)
+	time.Sleep(time.Duration(5) * time.Second)
 
 	req := ubillClient.NewDescribeOrderDetailInfoRequest()
 
@@ -182,7 +182,7 @@ func testSet2301ModifyEIPBandwidth04(ctx *utest.TestContext) {
 }
 
 func testSet2301DescribeOrderDetailInfo05(ctx *utest.TestContext) {
-	time.Sleep(time.Duration(2) * time.Second)
+	time.Sleep(time.Duration(5) * time.Second)
 
 	req := ubillClient.NewDescribeOrderDetailInfoRequest()
 
@@ -272,7 +272,7 @@ func testSet2301ModifyEIPBandwidth07(ctx *utest.TestContext) {
 }
 
 func testSet2301DescribeOrderDetailInfo08(ctx *utest.TestContext) {
-	time.Sleep(time.Duration(2) * time.Second)
+	time.Sleep(time.Duration(5) * time.Second)
 
 	req := ubillClient.NewDescribeOrderDetailInfoRequest()
 
