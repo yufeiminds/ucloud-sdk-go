@@ -24,6 +24,10 @@ func (c *Client) SetupRequest(req request.Common) request.Common {
 		req.SetRegion(cfg.Region)
 	}
 
+	if len(req.GetZone()) == 0 && len(cfg.Zone) > 0 {
+		req.SetZone(cfg.Zone)
+	}
+
 	if len(req.GetProjectId()) == 0 && len(cfg.ProjectId) > 0 {
 		req.SetProjectId(cfg.ProjectId)
 	}
@@ -71,7 +75,7 @@ func (c *Client) buildHTTPRequest(req request.Common) (*http.HttpRequest, error)
 
 // unmarshalHTTPReponse will get body from http response and unmarshal it's data into response struct
 func (c *Client) unmarshalHTTPReponse(body []byte, resp response.Common) error {
-	if len(body) < 0 {
+	if len(body) == 0 {
 		return nil
 	}
 

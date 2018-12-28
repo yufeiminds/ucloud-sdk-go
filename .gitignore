@@ -7,6 +7,7 @@ core.*
 debug
 debug.test
 .vscode
+*.*~
 
 # Executable
 bin/

@@ -10,6 +10,7 @@ import (
 
 	"github.com/ucloud/ucloud-sdk-go/services/pathx"
 	"github.com/ucloud/ucloud-sdk-go/services/uaccount"
+	"github.com/ucloud/ucloud-sdk-go/services/ubill"
 	"github.com/ucloud/ucloud-sdk-go/services/udb"
 	"github.com/ucloud/ucloud-sdk-go/services/udisk"
 	"github.com/ucloud/ucloud-sdk-go/services/udpn"
@@ -18,6 +19,10 @@ import (
 	"github.com/ucloud/ucloud-sdk-go/services/umem"
 	"github.com/ucloud/ucloud-sdk-go/services/unet"
 	"github.com/ucloud/ucloud-sdk-go/services/vpc"
+
+	pudisk "github.com/ucloud/ucloud-sdk-go/private/services/udisk"
+	puhost "github.com/ucloud/ucloud-sdk-go/private/services/uhost"
+	pumem "github.com/ucloud/ucloud-sdk-go/private/services/umem"
 
 	iubill "github.com/ucloud/ucloud-sdk-go/internal/services/ubill"
 	iudataark "github.com/ucloud/ucloud-sdk-go/internal/services/udataark"
@@ -43,6 +48,11 @@ var udiskClient *udisk.UDiskClient
 var udbClient *udb.UDBClient
 var umemClient *umem.UMemClient
 var udpnClient *udpn.UDPNClient
+var ubillClient *ubill.UBillClient
+
+var puhostClient *puhost.UHostClient
+var pudiskClient *pudisk.UDiskClient
+var pumemClient *pumem.UMemClient
 
 var iuhostClient *iuhost.UHostClient
 var iunetClient *iunet.UNetClient
@@ -75,6 +85,10 @@ func testSetup() {
 	credential.PrivateKey = os.Getenv("UCLOUD_PRIVATE_KEY")
 	credential.PublicKey = os.Getenv("UCLOUD_PUBLIC_KEY")
 
+	cfg.SetActionLevel("DescribeImage", log.WarnLevel)
+	cfg.SetActionLevel("GetRegion", log.WarnLevel)
+	cfg.SetActionLevel("DescribeUDBParamGroup", log.WarnLevel)
+
 	client = ucloud.NewClient(&cfg, &credential)
 	uhostClient = uhost.NewClient(&cfg, &credential)
 	unetClient = unet.NewClient(&cfg, &credential)
@@ -86,6 +100,7 @@ func testSetup() {
 	udbClient = udb.NewClient(&cfg, &credential)
 	umemClient = umem.NewClient(&cfg, &credential)
 	udpnClient = udpn.NewClient(&cfg, &credential)
+	ubillClient = ubill.NewClient(&cfg, &credential)
 
 	iudataarkClient = iudataark.NewClient(&cfg, &credential)
 	iudiskClient = iudisk.NewClient(&cfg, &credential)
@@ -97,6 +112,10 @@ func testSetup() {
 	iumemClient = iumem.NewClient(&cfg, &credential)
 	iudpnClient = iudpn.NewClient(&cfg, &credential)
 	iubillClient = iubill.NewClient(&cfg, &credential)
+
+	pudiskClient = pudisk.NewClient(&cfg, &credential)
+	puhostClient = puhost.NewClient(&cfg, &credential)
+	pumemClient = pumem.NewClient(&cfg, &credential)
 
 	log.Info("setup test fixtures ...")
 }
