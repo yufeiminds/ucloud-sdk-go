@@ -43,7 +43,7 @@ func main() {
 	start := time.Now()
 	fmt.Printf("Start: %s\n", start)
 
-	uhostIDs, errs := createUHostBatch(1)
+	uhostIDs, errs := createUHostBatch(10)
 	if len(errs) > 0 {
 		log.Error(errs)
 	}
