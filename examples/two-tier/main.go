@@ -43,7 +43,7 @@ func main() {
 	start := time.Now()
 	fmt.Printf("Start: %s\n", start)
 
-	uhostIDs, errs := createUHostBatch(20)
+	uhostIDs, errs := createUHostBatch(1)
 	if len(errs) > 0 {
 		log.Error(errs)
 	}
@@ -90,8 +90,17 @@ func createULB() (string, error) {
 		return "", err
 	}
 
-	// wait for async action is completed
-	time.Sleep(5 * time.Second)
+	time.Sleep(2 * time.Second)
+
+	descReq := ulbClient.NewDescribeULBRequest()
+	descReq.Region = ucloud.String(region)
+	descReq.Zone = ucloud.String(zone)
+	descReq.ULBId = ucloud.String(resp.ULBId)
+
+	_, err = ulbClient.DescribeULB(descReq)
+	if err != nil {
+		return "", err
+	}
 
 	return resp.ULBId, nil
 }
@@ -118,8 +127,17 @@ func createVServer(id string) (string, error) {
 		return "", err
 	}
 
-	// wait for async action is completed
-	time.Sleep(3 * time.Second)
+	time.Sleep(5 * time.Second)
+
+	descReq := ulbClient.NewDescribeVServerRequest()
+	descReq.Zone = ucloud.String(zone)
+	descReq.ULBId = ucloud.String(id)
+	descReq.VServerId = ucloud.String(resp.VServerId)
+
+	_, err = ulbClient.DescribeVServer(descReq)
+	if err != nil {
+		return "", err
+	}
 
 	return resp.VServerId, nil
 }
@@ -158,6 +176,18 @@ func allocateBackend(ulbID, vserverID, uhostID string) (string, error) {
 	req.Port = ucloud.Int(80)
 
 	resp, err := ulbClient.AllocateBackend(req)
+	if err != nil {
+		return "", err
+	}
+
+	time.Sleep(5 * time.Second)
+
+	descReq := ulbClient.NewDescribeVServerRequest()
+	descReq.Zone = ucloud.String(zone)
+	descReq.ULBId = ucloud.String(ulbID)
+	descReq.VServerId = ucloud.String(vserverID)
+
+	_, err = ulbClient.DescribeVServer(descReq)
 	if err != nil {
 		return "", err
 	}
@@ -222,6 +252,17 @@ func createUHost(name string) (string, error) {
 	req.Tag = ucloud.String("sdk-example")
 
 	resp, err := uhostClient.CreateUHostInstance(req)
+	if err != nil {
+		return "", err
+	}
+
+	time.Sleep(5 * time.Second)
+
+	descReq := uhostClient.NewDescribeUHostInstanceRequest()
+	descReq.Zone = ucloud.String(zone)
+	descReq.UHostIds = resp.UHostIds
+
+	_, err = uhostClient.DescribeUHostInstance(descReq)
 	if err != nil {
 		return "", err
 	}
