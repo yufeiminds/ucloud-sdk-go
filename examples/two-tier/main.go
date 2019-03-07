@@ -46,7 +46,6 @@ func main() {
 	uhostIDs, errs := createUHostBatch(10)
 	if len(errs) > 0 {
 		log.Error(errs)
-		return
 	}
 
 	// teardown
@@ -55,7 +54,6 @@ func main() {
 	ulbID, err := createULB()
 	if err != nil {
 		log.Error(err)
-		return
 	}
 
 	// teardown
@@ -64,7 +62,6 @@ func main() {
 	vserverID, err := createVServer(ulbID)
 	if err != nil {
 		log.Error(err)
-		return
 	}
 
 	// teardown
@@ -73,7 +70,6 @@ func main() {
 	backendIDs, errs := allocateBackendBatch(ulbID, vserverID, uhostIDs)
 	if len(errs) > 0 {
 		log.Error(errs)
-		return
 	}
 
 	// teardown
