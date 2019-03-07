@@ -40,6 +40,9 @@ func init() {
 }
 
 func main() {
+	start := time.Now()
+	fmt.Printf("Start: %s\n", start)
+
 	uhostIDs, errs := createUHostBatch(2)
 	if len(errs) > 0 {
 		log.Error(errs)
@@ -75,6 +78,11 @@ func main() {
 
 	// teardown
 	defer releaseBackendBatch(ulbID, vserverID, backendIDs)
+
+	end := time.Now()
+	fmt.Printf("End: %s\n", end)
+
+	fmt.Println(end.Sub(start))
 }
 
 func createULB() (string, error) {
