@@ -6,6 +6,7 @@
 [![SonarQube](https://sonarcloud.io/api/project_badges/measure?project=ucloud-sdk-go&metric=alert_status)](https://sonarcloud.io/dashboard?id=ucloud-sdk-go)
 [![GoDoc](https://godoc.org/github.com/ucloud/ucloud-sdk-go?status.svg)](https://godoc.org/github.com/ucloud/ucloud-sdk-go)
 [![GitHub](https://img.shields.io/github/license/ucloud/ucloud-sdk-go.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fyufeiminds%2Fucloud-sdk-go.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fyufeiminds%2Fucloud-sdk-go?ref=badge_shield)
 
 - Website: https://www.ucloud.cn/
 - Mailing list: [Google Group](https://groups.google.com/forum/#!forum/ucloud-sdk-go)
@@ -133,3 +134,7 @@ will encoded as `Disks.0.Size=20&Disks.0.Type=CLOUD_NORMAL&Disks.0.IsBoot=false`
 
 - [Issue](https://github.com/ucloud/ucloud-sdk-go/issues)
 - [Pull Request](https://github.com/ucloud/ucloud-sdk-go/pulls)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fyufeiminds%2Fucloud-sdk-go.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fyufeiminds%2Fucloud-sdk-go?ref=badge_large)
